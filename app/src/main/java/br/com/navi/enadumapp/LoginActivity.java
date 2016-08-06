@@ -1,6 +1,8 @@
 package br.com.navi.enadumapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +21,8 @@ import br.com.navi.enadumapp.Requests.LoginRequest;
 public class LoginActivity extends AppCompatActivity {
 
     private LoginHelper helper;
+    private static String ENADUM_PREFS = "ENADUM_PREFS";
+    private Aluno aluno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +36,10 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 helper = new LoginHelper(LoginActivity.this);
+                final SharedPreferences sharedpreferences = getSharedPreferences(ENADUM_PREFS, Context.MODE_PRIVATE);
 
                 //Obter dados do aluno
-                Aluno aluno = helper.obterAluno();
+                aluno = helper.obterAluno();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>(){
 
@@ -46,7 +51,14 @@ public class LoginActivity extends AppCompatActivity {
                             boolean sucesso = jsonResponse.getBoolean("sucesso");
 
                             //TODO: Verificar com o Cassio o que o WS vai retornar em caso de sucesso
+
                             //TODO: Colocar dados em Sessão
+                            SharedPreferences.Editor editor = sharedpreferences.edit();
+                            editor.putString("rm", aluno.getRm());
+                            editor.putString("cpf", aluno.getCpf());
+                            editor.putString("instuicao", aluno.getInstituicao());
+                            editor.apply();
+
 
                             // Acessar área restrita do Enadum
                             Intent intentIrAreaRestrita = new Intent(LoginActivity.this, HomeActivity.class);
