@@ -1,8 +1,10 @@
 package br.com.navi.enadumapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -59,13 +61,30 @@ public class LoginActivity extends AppCompatActivity {
                             editor.putString("instuicao", aluno.getInstituicao());
                             editor.apply();
 
-
-                            // Acessar área restrita do Enadum
-                            Intent intentIrAreaRestrita = new Intent(LoginActivity.this, HomeActivity.class);
-                            startActivity(intentIrAreaRestrita);
-
                             if (sucesso) {
-                                //TODO: Alerta de Erro
+                                // Acessar área restrita do Enadum
+                                Intent intentIrAreaRestrita = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(intentIrAreaRestrita);
+
+                            }
+                            else{
+                                // Construtor de Mensagem
+                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                builder.setMessage(jsonResponse.getString("mensagem"))
+                                        .setCancelable(false)
+                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener(){
+
+                                            @Override
+                                            public void onClick(DialogInterface dialogInterface, int i) {
+                                                dialogInterface.cancel();
+                                            }
+                                        });
+
+                                //Mensagem
+                                AlertDialog alert = builder.create();
+                                alert.setTitle("Enadum Informa");
+                                alert.show();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
