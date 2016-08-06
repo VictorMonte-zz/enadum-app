@@ -7,8 +7,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import br.com.navi.enadumapp.Helpers.LoginHelper;
 import br.com.navi.enadumapp.Model.Aluno;
+import br.com.navi.enadumapp.Requests.LoginRequest;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,18 +36,37 @@ public class LoginActivity extends AppCompatActivity {
                 //Obter dados do aluno
                 Aluno aluno = helper.obterAluno();
 
-                //Valida
-                if (aluno.getRm().equals("123"))
-                {
-                    //Logar
-                    Intent intentAcessarRestrito = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intentAcessarRestrito);
-                }
-                else
-                {
-                    //Falha
-                    Toast.makeText(LoginActivity.this, "RM ou CPF inválidos", Toast.LENGTH_SHORT).show();
-                }
+                Response.Listener<String> responseListener = new Response.Listener<String>(){
+
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject jsonResponse = null;
+                        try {
+                            jsonResponse = new JSONObject(response);
+                            boolean sucesso = jsonResponse.getBoolean("sucesso");
+
+                            //TODO: Verificar com o Cassio o que o WS vai retornar em caso de sucesso
+                            //TODO: Colocar dados em Sessão
+                            
+
+                            if (sucesso) {
+                                //TODO: Alerta de Erro
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+
+                    }
+                };
+
+                LoginRequest loginRequest = new LoginRequest(
+                        aluno.getRm(),
+                        aluno.getCpf(),
+                        aluno.getInstituicao(),
+                        responseListener
+                        );
 
             }
         });
