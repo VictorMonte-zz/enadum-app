@@ -47,7 +47,10 @@ public class LoginActivity extends AppCompatActivity {
 
                             //TODO: Verificar com o Cassio o que o WS vai retornar em caso de sucesso
                             //TODO: Colocar dados em Sessão
-                            
+
+                            // Acessar área restrita do Enadum
+                            Intent intentIrAreaRestrita = new Intent(LoginActivity.this, HomeActivity.class);
+                            startActivity(intentIrAreaRestrita);
 
                             if (sucesso) {
                                 //TODO: Alerta de Erro
