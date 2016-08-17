@@ -1,7 +1,7 @@
 package br.com.navi.enadumapp.Model;
 
 /**
- * Created by Pichau on 06/08/2016.
+ * Created by Victor Monte on 06/08/2016.
  */
 public class Aluno {
     private String rm;
