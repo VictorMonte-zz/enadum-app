@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">EnadumApp</string>
+    <string-array name="instituicoes">
+        <item>FIAP</item>
+        <item>PUC</item>
+        <item>FMU</item>
+        <item>USP</item>
+    </string-array>
 </resources>
