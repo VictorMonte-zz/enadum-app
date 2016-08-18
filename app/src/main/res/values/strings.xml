@@ -6,4 +6,16 @@
         <item>FMU</item>
         <item>USP</item>
     </string-array>
+
+    <string-array name="titulos_tab">
+        <item>Simulados</item>
+        <item>Resultados</item>
+        <item>Ranking</item>
+    </string-array>
+
+    <string name="texto_simulados">Esta é a view de simulados</string>
+    <string name="texto_resultados">Esta é a view de resultados</string>
+    <string name="texto_ranking">Esta é a view de ranking</string>
+
+    <string name="title_activity_home">Enadum</string>
 </resources>

@@ -15,9 +15,9 @@ import com.android.volley.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import br.com.navi.enadumapp.Helpers.LoginHelper;
+import br.com.navi.enadumapp.Helper.LoginHelper;
 import br.com.navi.enadumapp.Model.Aluno;
-import br.com.navi.enadumapp.Requests.LoginRequest;
+import br.com.navi.enadumapp.Request.LoginRequest;
 
 public class LoginActivity extends AppCompatActivity {
 
