@@ -1,4 +1,4 @@
-package br.com.navi.enadumapp.Helpers;
+package br.com.navi.enadumapp.Helper;
 
 import android.app.Activity;
 import android.widget.EditText;
