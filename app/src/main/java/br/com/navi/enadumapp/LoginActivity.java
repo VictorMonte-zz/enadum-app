@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 
@@ -100,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                         aluno.getCpf(),
                         aluno.getInstituicao(),
                         responseListener
-                        );
+                );
 
             }
         });
