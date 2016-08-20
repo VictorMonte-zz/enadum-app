@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import br.com.navi.enadumapp.Helper.LoginHelper;
 import br.com.navi.enadumapp.Model.Aluno;
 import br.com.navi.enadumapp.Request.LoginRequest;
+import br.com.navi.enadumapp.Utils.SessionRepository;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
                 helper = new LoginHelper(LoginActivity.this);
-                final SharedPreferences sharedpreferences = getSharedPreferences(ENADUM_PREFS, Context.MODE_PRIVATE);
 
                 //Obter dados do aluno
                 aluno = helper.obterAluno();
@@ -53,12 +53,12 @@ public class LoginActivity extends AppCompatActivity {
 
                             //TODO: Verificar com o Cassio o que o WS vai retornar em caso de sucesso
 
-                            //TODO: Colocar dados em Sessão
-                            SharedPreferences.Editor editor = sharedpreferences.edit();
-                            editor.putString("rm", aluno.getRm());
-                            editor.putString("cpf", aluno.getCpf());
-                            editor.putString("instuicao", aluno.getInstituicao());
-                            editor.apply();
+                            //TODO:
+                            // Obter dados de retorno do ws e colocar em sessao
+                            // Obs.:  Nome e Curso necessario para o HOME
+                            aluno.setNome("Victor Monte");
+                            aluno.setCurso("Sistemas de Informação");
+                            SessionRepository.aluno = aluno;
 
                             if (sucesso) {
                                 // Acessar área restrita do Enadum
