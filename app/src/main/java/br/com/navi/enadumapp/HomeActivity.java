@@ -1,19 +1,24 @@
 package br.com.navi.enadumapp;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
 import br.com.navi.enadumapp.Adapter.FragmentPageAdapter;
+import br.com.navi.enadumapp.Model.Aluno;
+import br.com.navi.enadumapp.Utils.SessionRepository;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private Aluno aluno;
     private TabLayout tab;
     private ViewPager view;
     private TextView lblAluno;
@@ -41,20 +46,43 @@ public class HomeActivity extends AppCompatActivity {
         tab.setupWithViewPager(view);
 
         //Obtem os dados do aluno
-        //TODO: Obter nome e curso da sessão
+        aluno = SessionRepository.aluno;
 
-        //Mostra os dados do aluno
-        lblAluno.setText("Bem vindo, " + "Victor Monte");
-        lblCurso.setText("Bacharelado em Sistemas de Informação");
+        //Valida usuario
+        if (aluno == null) {
+            // Construtor de Mensagem
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+            builder.setMessage("Usuário invalido!")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener(){
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            //Mensagem
+            AlertDialog alert = builder.create();
+            alert.setTitle("Enadum Informa");
+            alert.show();
+        }
+        else{
+            //Mostra os dados do aluno
+            lblAluno.setText("Bem vindo, " + aluno.getNome());
+            lblCurso.setText(aluno.getCurso());
+
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }
+
+
     }
 
 }
