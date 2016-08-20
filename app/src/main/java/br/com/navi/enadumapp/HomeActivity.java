@@ -46,7 +46,11 @@ public class HomeActivity extends AppCompatActivity {
         tab.setupWithViewPager(view);
 
         //Obtem os dados do aluno
-        aluno = SessionRepository.aluno;
+        //aluno = SessionRepository.aluno;
+        //APENAS PARA TESTES - REMOVER
+        aluno = new Aluno("69254","44261175851","FIAP");
+        aluno.setNome("Victor Monte");
+        aluno.setCurso("Sistemas de Informação");
 
         //Valida usuario
         if (aluno == null) {
