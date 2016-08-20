@@ -8,27 +8,44 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import br.com.navi.enadumapp.Adapter.FragmentPageAdapter;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    private TabLayout tab;
+    private ViewPager view;
+    private TextView lblAluno;
+    private TextView lblCurso;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        //Obtem componentes
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        tab = (TabLayout) findViewById(R.id.tab_principal);
+        view = (ViewPager) findViewById(R.id.view_pager);
+        lblAluno = (TextView) findViewById(R.id.lblAluno);
+        lblCurso = (TextView) findViewById(R.id.lblCurso);
+
         setSupportActionBar(toolbar);
 
-        mTabLayout = (TabLayout) findViewById(R.id.tab_principal);
-        mViewPager = (ViewPager) findViewById(R.id.view_pager);
+        //Configura as tabs
+        view.setAdapter(new FragmentPageAdapter(getSupportFragmentManager(), getResources().getStringArray(R.array.titulos_tab)));
 
-        mViewPager.setAdapter(new FragmentPageAdapter(getSupportFragmentManager(), getResources().getStringArray(R.array.titulos_tab)));
+        //Configura a view
+        tab.setupWithViewPager(view);
 
-        mTabLayout.setupWithViewPager(mViewPager);
+        //Obtem os dados do aluno
+        //TODO: Obter nome e curso da sessão
+
+        //Mostra os dados do aluno
+        lblAluno.setText("Bem vindo, " + "Victor Monte");
+        lblCurso.setText("Bacharelado em Sistemas de Informação");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
