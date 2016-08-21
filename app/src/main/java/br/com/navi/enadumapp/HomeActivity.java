@@ -46,7 +46,11 @@ public class HomeActivity extends AppCompatActivity {
         tab.setupWithViewPager(view);
 
         //Obtem os dados do aluno
-        aluno = SessionRepository.aluno;
+        //aluno = SessionRepository.aluno;
+        //APENAS PARA TESTES - REMOVER
+        aluno = new Aluno("69254","44261175851","FIAP");
+        aluno.setNome("Victor Monte");
+        aluno.setCurso("Sistemas de Informação");
 
         //Valida usuario
         if (aluno == null) {
@@ -76,7 +80,7 @@ public class HomeActivity extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    Snackbar.make(view, "MITOR SERMITOR", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
             });
