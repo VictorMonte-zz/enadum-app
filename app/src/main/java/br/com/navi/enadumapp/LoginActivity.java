@@ -18,12 +18,12 @@ import org.json.JSONObject;
 import br.com.navi.enadumapp.Helper.LoginHelper;
 import br.com.navi.enadumapp.Model.Aluno;
 import br.com.navi.enadumapp.Request.LoginRequest;
+import br.com.navi.enadumapp.Utils.AlertManager;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginHelper helper;
-    private static String ENADUM_PREFS = "ENADUM_PREFS";
     private Aluno aluno;
 
     @Override
@@ -42,6 +42,18 @@ public class LoginActivity extends AppCompatActivity {
                 //Obter dados do aluno
                 aluno = helper.obterAluno();
 
+                //---------------------------------------
+                //--USUARIO MOCK (ABAIXO APENAS PARA TESTE)
+                //---------------------------------------
+                aluno.setNome("Victor Monte");
+                aluno.setCurso("Sistemas de Informação");
+                aluno.setInstituicao("FIAP");
+                SessionRepository.aluno = aluno;
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+
+                //---------------------------------------
+                //--NÃO FUNCIONA SEM O ENDPOINT DO WS
+                //---------------------------------------
                 Response.Listener<String> responseListener = new Response.Listener<String>(){
 
                     @Override
@@ -53,38 +65,19 @@ public class LoginActivity extends AppCompatActivity {
 
                             //TODO: Verificar com o Cassio o que o WS vai retornar em caso de sucesso
 
-                            //TODO:
-                            // Obter dados de retorno do ws e colocar em sessao
-                            // Obs.:  Nome e Curso necessario para o HOME
-                            aluno.setNome("Victor Monte");
-                            aluno.setCurso("Sistemas de Informação");
+                            //TODO: Obter dados de retorno do ws e colocar em sessao
+                            //aluno.setNome();
+                            //aluno.setCurso();
                             SessionRepository.aluno = aluno;
 
                             if (sucesso) {
                                 // Acessar área restrita do Enadum
-                                Intent intentIrAreaRestrita = new Intent(LoginActivity.this, HomeActivity.class);
-                                startActivity(intentIrAreaRestrita);
-
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                             }
                             else{
-                                // Construtor de Mensagem
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage(jsonResponse.getString("mensagem"))
-                                        .setCancelable(false)
-                                        .setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface, int i) {
-                                                dialogInterface.cancel();
-                                            }
-                                        });
-
-                                //Mensagem
-                                AlertDialog alert = builder.create();
-                                alert.setTitle("Enadum Informa");
-                                alert.show();
-
+                                AlertManager.Alertar(LoginActivity.this, "Usuário ou senha inválido", null);
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

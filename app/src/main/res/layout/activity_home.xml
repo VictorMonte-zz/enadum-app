@@ -42,6 +42,15 @@
                 android:id="@+id/lblCurso"
                 android:layout_below="@+id/lblAluno"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:textSize="15sp"
+                android:textColor="#ffffff"
+                android:id="@+id/lblInstituicao"
+                android:layout_below="@+id/lblCurso"/>
+
         </RelativeLayout>
 
         <android.support.design.widget.TabLayout
