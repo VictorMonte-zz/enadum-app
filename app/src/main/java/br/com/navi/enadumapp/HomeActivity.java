@@ -1,6 +1,7 @@
 package br.com.navi.enadumapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import br.com.navi.enadumapp.Adapter.FragmentPageAdapter;
 import br.com.navi.enadumapp.Model.Aluno;
+import br.com.navi.enadumapp.Utils.AlertManager;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 
 public class HomeActivity extends AppCompatActivity {
@@ -23,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     private ViewPager view;
     private TextView lblAluno;
     private TextView lblCurso;
+    private TextView lblInstituicao;
     private Toolbar toolbar;
 
     @Override
@@ -36,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         view = (ViewPager) findViewById(R.id.view_pager);
         lblAluno = (TextView) findViewById(R.id.lblAluno);
         lblCurso = (TextView) findViewById(R.id.lblCurso);
+        lblInstituicao = (TextView) findViewById(R.id.lblInstituicao);
 
         setSupportActionBar(toolbar);
 
@@ -46,35 +50,20 @@ public class HomeActivity extends AppCompatActivity {
         tab.setupWithViewPager(view);
 
         //Obtem os dados do aluno
-        //aluno = SessionRepository.aluno;
-        //APENAS PARA TESTES - REMOVER
-        aluno = new Aluno("69254","44261175851","FIAP");
-        aluno.setNome("Victor Monte");
-        aluno.setCurso("Sistemas de Informação");
+        aluno = SessionRepository.aluno;
 
         //Valida usuario
         if (aluno == null) {
-            // Construtor de Mensagem
-            AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
-            builder.setMessage("Usuário invalido!")
-                    .setCancelable(false)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener(){
-
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
-
-            //Mensagem
-            AlertDialog alert = builder.create();
-            alert.setTitle("Enadum Informa");
-            alert.show();
+            AlertManager.Alertar(
+                    HomeActivity.this,
+                    "Erro: Dados do usuário inválidos",
+                    new Intent(HomeActivity.this, LoginActivity.class));
         }
         else{
             //Mostra os dados do aluno
             lblAluno.setText("Bem vindo, " + aluno.getNome());
             lblCurso.setText(aluno.getCurso());
+            lblInstituicao.setText(aluno.getInstituicao());
 
             FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
             fab.setOnClickListener(new View.OnClickListener() {
