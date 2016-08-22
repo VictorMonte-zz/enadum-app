@@ -1,4 +1,4 @@
-package br.com.navi.enadumapp.Requests;
+package br.com.navi.enadumapp.Request;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;

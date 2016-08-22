@@ -1,4 +1,4 @@
-package br.com.navi.enadumapp.Helpers;
+package br.com.navi.enadumapp.Helper;
 
 import android.app.Activity;
 import android.util.Log;
@@ -25,7 +25,7 @@ import br.com.navi.enadumapp.Model.Instituicao;
 import br.com.navi.enadumapp.R;
 
 /**
- * Created by Pichau on 06/08/2016.
+ * Created by Victor Monte on 06/08/2016.
  */
 public class LoginHelper {
 
