@@ -48,6 +48,23 @@ public class LoginHelper {
         );
     }
 
+    public boolean temRM() {
+        return !campoRM.getText().toString().isEmpty();
+    }
+
+
+    public void mostraErroRM() {
+        campoRM.setError("empty");
+    }
+
+    public boolean temCPF() {
+        return !campoCPF.getText().toString().isEmpty();
+    }
+
+    public void mostraErroCPF() {
+        campoCPF.setError("empty");
+    }
+
     public List<Instituicao> LoadInstituicoes(Activity activity){
 
         final List<Instituicao> instituicoes = new ArrayList<Instituicao>();
