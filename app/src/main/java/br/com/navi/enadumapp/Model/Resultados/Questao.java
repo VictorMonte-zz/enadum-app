@@ -1,11 +1,15 @@
 package br.com.navi.enadumapp.Model.Resultados;
 
+import java.util.ArrayList;
+
 /**
  * Created by Victor Monte on 20/08/2016.
  */
 public class Questao {
     private String conteudo;
     private boolean correta;
+    private Long id;
+    private ArrayList<Resposta> respostas = new ArrayList<Resposta>();
 
     public Questao(){}
 
@@ -28,5 +32,13 @@ public class Questao {
 
     public void setCorreta(boolean correta) {
         this.correta = correta;
+    }
+
+    public ArrayList<Resposta> getAnswers(){
+        return respostas;
+    }
+
+    public void setAnswers(ArrayList<Resposta> answers){
+        this.respostas = answers;
     }
 }

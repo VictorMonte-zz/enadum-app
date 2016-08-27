@@ -8,15 +8,21 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.android.volley.Response;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.navi.enadumapp.Helper.LoginHelper;
 import br.com.navi.enadumapp.Model.Aluno;
+import br.com.navi.enadumapp.Model.Instituicao;
 import br.com.navi.enadumapp.Request.LoginRequest;
 import br.com.navi.enadumapp.Utils.AlertManager;
 import br.com.navi.enadumapp.Utils.SessionRepository;
@@ -25,11 +31,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginHelper helper;
     private Aluno aluno;
+    private List<Instituicao> instituicoes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //TODO: habilitar a linha abaixo quando o servico que fornece as instituicoes estiver pronto
+        //this.loadSpinner();
 
         Button btnLogar = (Button) findViewById(R.id.btnLogar);
         btnLogar.setOnClickListener(new View.OnClickListener() {
@@ -96,5 +106,21 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void loadSpinner() {
+
+        instituicoes = helper.LoadInstituicoes(LoginActivity.this);
+
+        List<String> spinnerArray = new ArrayList<String>();
+        for (Instituicao instituicao : instituicoes){
+            spinnerArray.add(instituicao.getNome());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spinnerArray);
+        //teste
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        Spinner sItems = (Spinner) findViewById(R.id.spinner);
+        sItems.setAdapter(adapter);
     }
 }
