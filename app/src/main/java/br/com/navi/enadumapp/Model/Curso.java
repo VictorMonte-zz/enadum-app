@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.navi.enadumapp.Model.Resultados.Disciplina;
-
 /**
  * Created by Danilo on 27/08/2016.
  */
@@ -13,15 +11,15 @@ public class Curso implements Serializable {
 
     private String nome;
     private Long id;
-    private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+    private List<Turma> turmas = new ArrayList<Turma>();
 
     public Curso(String nome, Long id){
         this.id = id;
         this.nome = nome;
     }
 
-    public List<Disciplina> getDisciplinas() {
-        return disciplinas;
+    public List<Turma> getTurmas() {
+        return turmas;
     }
 
     public String getNome() {

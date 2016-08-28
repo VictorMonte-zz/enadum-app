@@ -1,7 +1,9 @@
-package br.com.navi.enadumapp.Model.Resultados;
+package br.com.navi.enadumapp.Model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.navi.enadumapp.Model.Questao;
 
 /**
  * Created by Victor Monte on 20/08/2016.
@@ -13,6 +15,11 @@ public class Disciplina {
     private List<Questao> questoes = new ArrayList<Questao>();
 
     public  Disciplina(){}
+
+    public Disciplina(String nome, Long id){
+        this.setNome(nome);
+        this.setId(id);
+    }
 
     public  Disciplina(String nome, String pontuacao){
         this.setNome(nome);
@@ -45,5 +52,10 @@ public class Disciplina {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }
