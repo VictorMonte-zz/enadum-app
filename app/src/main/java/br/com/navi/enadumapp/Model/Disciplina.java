@@ -1,5 +1,6 @@
 package br.com.navi.enadumapp.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import br.com.navi.enadumapp.Model.Questao;
 /**
  * Created by Victor Monte on 20/08/2016.
  */
-public class Disciplina {
+public class Disciplina implements Serializable{
     private String nome;
     private String pontuacao;
     private Long id;

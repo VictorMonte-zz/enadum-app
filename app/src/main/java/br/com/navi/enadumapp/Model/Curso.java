@@ -11,15 +11,15 @@ public class Curso implements Serializable {
 
     private String nome;
     private Long id;
-    private List<Turma> turmas = new ArrayList<Turma>();
+    private List<Disciplina> disciplinas = new ArrayList<Disciplina>();
 
     public Curso(String nome, Long id){
         this.id = id;
         this.nome = nome;
     }
 
-    public List<Turma> getTurmas() {
-        return turmas;
+    public List<Disciplina> getDisciplinas() {
+        return disciplinas;
     }
 
     public String getNome() {

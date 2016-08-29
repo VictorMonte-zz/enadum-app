@@ -1,8 +1,10 @@
 package br.com.navi.enadumapp.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.navi.enadumapp.Model.Disciplina;
+import br.com.navi.enadumapp.Model.Questao;
+import br.com.navi.enadumapp.Model.Resposta;
+import br.com.navi.enadumapp.Model.Simulado;
 import br.com.navi.enadumapp.R;
+import br.com.navi.enadumapp.SimuladoActivity;
 
 /**
  * Created by Victor Monte on 17/08/2016.
@@ -46,10 +52,53 @@ public class FragmentSimulados extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Disciplina selecionada  = (Disciplina) adapterView.getItemAtPosition(i);
-                Toast.makeText(getActivity(), "Disciplina selecionada: " +  selecionada, Toast.LENGTH_SHORT).show();
+
+                Simulado simulado = gerarSimulado(selecionada);
+
+                Intent fazerSimulado  = new Intent(getActivity(), SimuladoActivity.class);
+                fazerSimulado.putExtra("simulado",simulado);
+                startActivity(fazerSimulado);
+
+                //Toast.makeText(getActivity(), "Disciplina selecionada: " +  selecionada, Toast.LENGTH_SHORT).show();
             }
         });
 
         return layoutSimulados;
+    }
+
+    public Simulado gerarSimulado(Disciplina disciplina){
+
+        Simulado simulado = new Simulado();
+
+        simulado.setDisciplina(disciplina);
+        simulado.setEnadeOuProfessor("Enade");
+        simulado.setId((long) 1);
+
+        for (int i = 0; i < 3; i ++){
+            Questao questao = new Questao();
+
+            questao.setEnunciado("Enunciado " + disciplina.getNome() + " " + i);
+            questao.setId((long) i);
+
+            for (int j = 0; j < 5; j++){
+                Resposta resposta = new Resposta();
+                resposta.setId((long) j);
+
+                resposta.setSenteca("Resposta do enum " + i + " numero " + j);
+                if (j<4) {
+                    resposta.setCorreta(false);
+                }else{
+                    resposta.setCorreta(true);
+                }
+
+                questao.addResposta(resposta);
+                Log.v("Fragment Simulado", "Resposta criada e adicionada" + i);
+            }
+
+            simulado.addQuestao(questao);
+
+        }
+
+        return simulado;
     }
 }
