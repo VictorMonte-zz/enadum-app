@@ -74,9 +74,5 @@ public class HomeActivity extends AppCompatActivity {
                 }
             });
         }
-
-
     }
-
-    //testedan3
 }

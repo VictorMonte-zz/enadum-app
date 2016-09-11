@@ -1,36 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="br.com.navi.enadumapp.SimuladoActivity">
 
-    <TableLayout
+    <TextView
+        android:id="@+id/simulado_materia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:textColor="#000"
+        android:text="Banco de Dados"/>
+
+
+    <TextView
+        android:id="@+id/simulado_fonte"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        android:textColor="#000"
+        android:text="Enade"/>
+
+    <Chronometer
+        android:id="@+id/simulado_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        android:layout_below="@id/simulado_fonte" />
+
+    <FrameLayout
+        android:id="@+id/questoes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"/>
 
-        <TableRow
-            android:background="#73D2DE"
-            android:padding="20dp">
-
-            <TextView
-                android:id="@+id/simulado_nome_da_disciplina"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="#FFF"
-                android:textSize="22sp"/>
-
-            <TextView
-                android:id="@+id/simulado_enade_ou_professor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="#FFF"/>
-
-        </TableRow>
-
-    </TableLayout>
-
-</LinearLayout>
+</RelativeLayout>
