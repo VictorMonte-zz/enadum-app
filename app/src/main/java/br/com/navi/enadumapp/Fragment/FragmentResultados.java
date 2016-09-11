@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import br.com.navi.enadumapp.Adapter.ExpandableListAdapter;
-import br.com.navi.enadumapp.Model.Resultados.Disciplina;
-import br.com.navi.enadumapp.Model.Resultados.Questao;
+import br.com.navi.enadumapp.Adapter.ExpandableListResultadosAdapter;
+import br.com.navi.enadumapp.Model.Disciplina;
+import br.com.navi.enadumapp.Model.Questao;
 import br.com.navi.enadumapp.R;
 
 /**
@@ -22,7 +22,7 @@ import br.com.navi.enadumapp.R;
  */
 public class FragmentResultados extends Fragment {
 
-    ExpandableListAdapter listAdapter;
+    ExpandableListResultadosAdapter listAdapter;
     ExpandableListView expListView;
     List<Disciplina> listDataHeader;
     HashMap<Disciplina, List<Questao>> listDataChild;
@@ -43,7 +43,7 @@ public class FragmentResultados extends Fragment {
         // preparing list data
         gerarMockQuestoesDisciplinas();
 
-        listAdapter = new ExpandableListAdapter(getActivity(), listDataHeader, listDataChild);
+        listAdapter = new ExpandableListResultadosAdapter(getActivity(), listDataHeader, listDataChild);
 
         // setting list adapter
         expListView.setAdapter(listAdapter);

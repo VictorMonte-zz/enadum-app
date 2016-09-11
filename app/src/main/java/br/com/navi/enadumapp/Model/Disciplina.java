@@ -1,18 +1,26 @@
-package br.com.navi.enadumapp.Model.Resultados;
+package br.com.navi.enadumapp.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.navi.enadumapp.Model.Questao;
 
 /**
  * Created by Victor Monte on 20/08/2016.
  */
-public class Disciplina {
+public class Disciplina implements Serializable{
     private String nome;
     private String pontuacao;
     private Long id;
     private List<Questao> questoes = new ArrayList<Questao>();
 
     public  Disciplina(){}
+
+    public Disciplina(String nome, Long id){
+        this.setNome(nome);
+        this.setId(id);
+    }
 
     public  Disciplina(String nome, String pontuacao){
         this.setNome(nome);
@@ -45,5 +53,10 @@ public class Disciplina {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }
