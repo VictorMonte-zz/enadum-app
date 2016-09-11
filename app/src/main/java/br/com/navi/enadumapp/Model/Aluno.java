@@ -9,6 +9,15 @@ public class Aluno {
     private String instituicao;
     private String nome;
     private String curso;
+    private long pontuacao;
+
+    public Aluno(){}
+
+    public Aluno(String rm, String cpf, String instituicao) {
+        setRm(rm);
+        setCpf(cpf);
+        setInstituicao(instituicao);
+    }
 
     public String getInstituicao() {
         return instituicao;
@@ -50,9 +59,11 @@ public class Aluno {
         this.curso = curso;
     }
 
-    public Aluno(String rm, String cpf, String instituicao) {
-        setRm(rm);
-        setCpf(cpf);
-        setInstituicao(instituicao);
+    public long getPontuacao() {
+        return pontuacao;
+    }
+
+    public void setPontuacao(long pontuacao) {
+        this.pontuacao = pontuacao;
     }
 }
