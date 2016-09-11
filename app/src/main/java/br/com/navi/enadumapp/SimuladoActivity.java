@@ -1,34 +1,37 @@
 package br.com.navi.enadumapp;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import br.com.navi.enadumapp.Model.Simulado;
+import br.com.navi.enadumapp.Utils.SessionRepository;
 
-/**
- * Created by Danilo on 28/08/2016.
- */
 public class SimuladoActivity extends AppCompatActivity {
 
+    private TextView materia;
+    private TextView fonte;
+    private Chronometer cronometro;
     private Simulado simulado;
-    private TextView nomeDaDisiplina;
-    private TextView enadeOuProfessor;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simulado);
 
-        Intent intent = this.getIntent();
-        this.simulado = (Simulado) intent.getSerializableExtra("simulado");
+        this.simulado = SessionRepository.simulado;
 
-        this.nomeDaDisiplina = (TextView) findViewById(R.id.simulado_nome_da_disciplina);
-        this.enadeOuProfessor = (TextView) findViewById(R.id.simulado_enade_ou_professor);
+        this.materia = (TextView) findViewById(R.id.simulado_materia);
+        this.fonte = (TextView) findViewById(R.id.simulado_fonte);
+        this.cronometro = (Chronometer) findViewById(R.id.simulado_timer);
 
-        nomeDaDisiplina.setText(simulado.getDisciplina().getNome());
-        enadeOuProfessor.setText(simulado.getEnadeOuProfessor());
+        this.materia.setText(simulado.getDisciplina().getNome());
+        this.fonte.setText("Enade");
+        this.cronometro.start();
+
     }
+
 }
