@@ -58,4 +58,8 @@ public class Simulado implements Serializable{
     public void addQuestao (Questao questao){
         questoes.add(questao);
     }
+
+    public Questao getQuestao (int postion){
+        return this.questoes.get(postion);
+    }
 }

@@ -43,6 +43,22 @@
     <FrameLayout
         android:id="@+id/questoes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/simulado_timer"/>
+
+    <Button
+        android:id="@+id/questao_button_proxima"
+        android:text="Next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questoes"/>
+
+    <Button
+        android:id="@+id/questao_button_anterior"
+        android:text="Back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/questao_button_proxima"/>
+
 
 </RelativeLayout>
