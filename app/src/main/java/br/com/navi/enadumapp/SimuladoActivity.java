@@ -1,12 +1,13 @@
 package br.com.navi.enadumapp;
 
-import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
+import br.com.navi.enadumapp.Fragment.FragmentQuestao;
+import br.com.navi.enadumapp.Model.Questao;
 import br.com.navi.enadumapp.Model.Simulado;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 
@@ -16,6 +17,8 @@ public class SimuladoActivity extends AppCompatActivity {
     private TextView fonte;
     private Chronometer cronometro;
     private Simulado simulado;
+    private Questao questaoAtual;
+    private static int posicao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,21 @@ public class SimuladoActivity extends AppCompatActivity {
         this.fonte.setText("Enade");
         this.cronometro.start();
 
+        FragmentQuestao fragmentQuestao = new FragmentQuestao();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.questoes,fragmentQuestao);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+
+    }
+
+    public Simulado getSimulado(){
+        return this.simulado;
+    }
+    public int getPosicao(){
+        return this.posicao;
     }
 
 }
