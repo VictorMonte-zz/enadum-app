@@ -10,8 +10,6 @@ import android.widget.Button;
 import br.com.navi.enadumapp.Controller.LoginController;
 import br.com.navi.enadumapp.Helper.LoginHelper;
 import br.com.navi.enadumapp.Request.LoginRequest;
-import br.com.navi.enadumapp.Utils.SessionRepository;
-import br.com.navi.enadumapp.models.Aluno;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -19,7 +17,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private LoginHelper helper;
     private LoginRequest loginRequest;
-    private Aluno aluno = new Aluno();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +24,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         Button btnLogar = (Button) findViewById(R.id.btnLogar);
+
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 loginRequest = helper.obterLoginRequest();
                 getAluno(loginRequest);
-                SessionRepository.aluno = aluno;
                 startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }
         });
@@ -45,7 +42,4 @@ public class LoginActivity extends AppCompatActivity {
         controller.login(loginRequest);
     }
 
-    public void setUpAluno(Aluno aluno){
-        this.aluno = aluno;
-    }
 }

@@ -14,10 +14,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import br.com.navi.enadumapp.Model.Simulado;
 import br.com.navi.enadumapp.R;
 import br.com.navi.enadumapp.SimuladoActivity;
-import br.com.navi.enadumapp.models.Questao;
 import br.com.navi.enadumapp.models.QuestaoEnade;
 import br.com.navi.enadumapp.models.Resposta;
 import br.com.navi.enadumapp.models.SimuladoEnade;

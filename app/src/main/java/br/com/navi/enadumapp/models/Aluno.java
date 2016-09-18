@@ -34,6 +34,9 @@ public class Aluno {
     @SerializedName("simuladosEnade")
     List<SimuladoEnade> simuladosEnade = new LinkedList<SimuladoEnade>();
 
+    @SerializedName("experiencia")
+    private Double experiencia;
+
     public Integer getId() {
         return id;
     }
@@ -82,4 +85,11 @@ public class Aluno {
         this.simuladosEnade = simuladosEnade;
     }
 
+    public Double getExperiencia() {
+        return experiencia;
+    }
+
+    public void setExperiencia(Double experiencia) {
+        this.experiencia = experiencia;
+    }
 }

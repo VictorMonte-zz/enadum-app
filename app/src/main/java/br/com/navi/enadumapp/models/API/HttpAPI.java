@@ -21,7 +21,7 @@ public interface HttpAPI {
     //String endpoint = "http://requestb.in/";
 
     //@POST("xp8u7xxp")
-    @POST("enadumweb/services/login")
+    @POST("enadumweb/services/loginAluno")
     Call<Aluno> getAluno(@Body LoginRequest loginRequest);
 
     Gson gson = new GsonBuilder()

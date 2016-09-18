@@ -4,26 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
-
-import br.com.navi.enadumapp.Model.Questao;
-import br.com.navi.enadumapp.Model.Resposta;
-import br.com.navi.enadumapp.Model.Simulado;
 import br.com.navi.enadumapp.R;
 import br.com.navi.enadumapp.SimuladoActivity;
 import br.com.navi.enadumapp.Utils.SessionRepository;
+import br.com.navi.enadumapp.models.Curso;
 import br.com.navi.enadumapp.models.Disciplina;
 
 /**
@@ -41,19 +36,19 @@ public class FragmentSimulados extends Fragment {
 
         this.listViewDisciplinas = (ListView) layoutSimulados.findViewById(R.id.lista_simulados_listview);
 
-        List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+        List<Curso> cursos = new LinkedList<Curso>(SessionRepository.aluno.getCursos());
 
-        this.listViewDisciplinas.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, disciplinas));
+        this.listViewDisciplinas.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, cursos));
 
-        this.listViewDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Disciplina selecionada  = (Disciplina) adapterView.getItemAtPosition(i);
-
-                Intent fazerSimulado  = new Intent(getActivity(), SimuladoActivity.class);
-                startActivity(fazerSimulado);
-            }
-        });
+//        this.listViewDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Disciplina selecionada  = (Disciplina) adapterView.getItemAtPosition(i);
+//
+//                Intent fazerSimulado  = new Intent(getActivity(), SimuladoActivity.class);
+//                startActivity(fazerSimulado);
+//            }
+//        });
 
         return layoutSimulados;
     }

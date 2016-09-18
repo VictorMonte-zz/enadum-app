@@ -43,10 +43,10 @@ public class FragmentResultados extends Fragment {
         // preparing list data
 //        gerarMockQuestoesDisciplinas();
 
-        listAdapter = new ExpandableListResultadosAdapter(getActivity(), listDataHeader, listDataChild);
+        //listAdapter = new ExpandableListResultadosAdapter(getActivity(), listDataHeader, listDataChild);
 
         // setting list adapter
-        expListView.setAdapter(listAdapter);
+        //expListView.setAdapter(listAdapter);
 
     }
 

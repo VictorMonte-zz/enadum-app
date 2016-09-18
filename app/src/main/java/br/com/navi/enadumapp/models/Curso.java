@@ -39,4 +39,5 @@ public class Curso {
     public void setCursoMEC(CursoMEC cursoMEC) {
         this.cursoMEC = cursoMEC;
     }
+
 }

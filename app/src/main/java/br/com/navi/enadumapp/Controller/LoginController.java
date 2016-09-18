@@ -1,8 +1,11 @@
 package br.com.navi.enadumapp.Controller;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.util.Log;
 
 import br.com.navi.enadumapp.LoginActivity;
+import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.API.HttpAPI;
 import br.com.navi.enadumapp.models.API.ServiceGenerator;
 import br.com.navi.enadumapp.Request.LoginRequest;
@@ -18,12 +21,18 @@ import retrofit2.Response;
 public class LoginController {
 
     LoginActivity activity;
+    Context context;
 
-    public LoginController(LoginActivity activity){
-        this.activity = activity;
+    public LoginController(Context context){
+        this.context = context;
     }
 
     public void login(LoginRequest loginRequest){
+
+        final ProgressDialog mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.show();
         Log.d("logLevel", "called loginController");
 
         HttpAPI api = ServiceGenerator.createService(HttpAPI.class);
@@ -35,20 +44,34 @@ public class LoginController {
                 Log.d("LogLevel", "onResponse is called");
                 Log.d("Status", "OK");
                 if (response.isSuccessful()) {
-                    Log.d("Status", "Response: " + response.raw());
-                    Log.d("Status", "Response: " + response.body());
-                    activity.setUpAluno(response.body());
+                    Log.d("Status", "Response raw(): " + response.raw());
+                    Log.d("Status", "Response body(): " + response.body());
+                    SessionRepository.aluno = response.body();
+                    Log.d("Aluno SR", SessionRepository.aluno.getNome());
+
+                    if (mProgressDialog.isShowing()){
+                        mProgressDialog.dismiss();
+                    }
+
                 } else {
-                    Log.d("Status", "" + response.message());
-                    Log.d("Status", "" + response.errorBody());
-                    Log.d("Status", "" + response.raw());
+                    Log.d("Status", "message: " + response.message());
+                    Log.d("Status", "body: " + response.errorBody());
+                    Log.d("Status", "raw: " + response.raw());
                     Log.d("Status", "Response NOT OK");
+
+                    if (mProgressDialog.isShowing()){
+                        mProgressDialog.dismiss();
+                    }
                 }
             }
 
             @Override
             public void onFailure(Call<Aluno> call, Throwable t) {
                 Log.d("Status", "FAIL: " + t.getMessage());
+
+                if (mProgressDialog.isShowing()){
+                    mProgressDialog.dismiss();
+                }
             }
         });
     }
