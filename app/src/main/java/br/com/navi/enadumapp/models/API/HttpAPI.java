@@ -2,10 +2,12 @@ package br.com.navi.enadumapp.models.API;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.okhttp.Response;
 
 import br.com.navi.enadumapp.Request.LoginRequest;
 import br.com.navi.enadumapp.models.Aluno;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;

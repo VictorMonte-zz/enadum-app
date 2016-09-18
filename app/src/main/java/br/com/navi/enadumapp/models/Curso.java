@@ -40,4 +40,8 @@ public class Curso {
         this.cursoMEC = cursoMEC;
     }
 
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

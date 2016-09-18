@@ -5,11 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 import br.com.navi.enadumapp.Controller.LoginController;
 import br.com.navi.enadumapp.Helper.LoginHelper;
 import br.com.navi.enadumapp.Request.LoginRequest;
+import br.com.navi.enadumapp.task.EnviaUsuarioTask;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 loginRequest = helper.obterLoginRequest();
                 getAluno(loginRequest);
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }
         });
     }
@@ -42,4 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         controller.login(loginRequest);
     }
 
+    public LoginRequest getLoginRequest() {
+        return loginRequest;
+    }
 }

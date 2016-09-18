@@ -11,15 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import br.com.navi.enadumapp.R;
-import br.com.navi.enadumapp.SimuladoActivity;
 import br.com.navi.enadumapp.Utils.SessionRepository;
+import br.com.navi.enadumapp.models.Aluno;
 import br.com.navi.enadumapp.models.Curso;
-import br.com.navi.enadumapp.models.Disciplina;
 
 /**
  * Created by Victor Monte on 17/08/2016.
@@ -27,6 +25,7 @@ import br.com.navi.enadumapp.models.Disciplina;
 public class FragmentSimulados extends Fragment {
 
     private ListView listViewDisciplinas;
+    Aluno aluno;
 
     @Nullable
     @Override
@@ -36,7 +35,9 @@ public class FragmentSimulados extends Fragment {
 
         this.listViewDisciplinas = (ListView) layoutSimulados.findViewById(R.id.lista_simulados_listview);
 
-        List<Curso> cursos = new LinkedList<Curso>(SessionRepository.aluno.getCursos());
+        aluno = SessionRepository.aluno;
+
+        List<Curso> cursos = new LinkedList<Curso>(aluno.getCursos());
 
         this.listViewDisciplinas.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, cursos));
 
