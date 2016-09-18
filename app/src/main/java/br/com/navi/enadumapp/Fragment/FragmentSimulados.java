@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import br.com.navi.enadumapp.R;
+import br.com.navi.enadumapp.SimuladoActivity;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.Aluno;
 import br.com.navi.enadumapp.models.Curso;
@@ -41,15 +42,17 @@ public class FragmentSimulados extends Fragment {
 
         this.listViewDisciplinas.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, cursos));
 
-//        this.listViewDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Disciplina selecionada  = (Disciplina) adapterView.getItemAtPosition(i);
-//
-//                Intent fazerSimulado  = new Intent(getActivity(), SimuladoActivity.class);
-//                startActivity(fazerSimulado);
-//            }
-//        });
+        this.listViewDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Curso selecionado  = (Curso) adapterView.getItemAtPosition(i);
+
+                SessionRepository.simulado =  selecionado.getCursoMEC().getSimuladosEnade().get(0);
+
+                Intent fazerSimulado  = new Intent(getActivity(), SimuladoActivity.class);
+                startActivity(fazerSimulado);
+            }
+        });
 
         return layoutSimulados;
     }

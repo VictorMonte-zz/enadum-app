@@ -9,6 +9,7 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 import br.com.navi.enadumapp.Fragment.FragmentQuestao;
+import br.com.navi.enadumapp.Fragment.FragmentQuestaoEnade;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.SimuladoEnade;
 
@@ -39,10 +40,10 @@ public class SimuladoActivity extends AppCompatActivity {
         this.fonte.setText("Enade");
         this.cronometro.start();
 
-        FragmentQuestao fragmentQuestao = new FragmentQuestao();
+        FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.questoes,fragmentQuestao);
+        transaction.replace(R.id.questoes,fragmentQuestaoEnade);
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -50,10 +51,10 @@ public class SimuladoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 posicao += 1;
-                FragmentQuestao fragmentQuestao = new FragmentQuestao();
+                FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.questoes,fragmentQuestao);
+                transaction.replace(R.id.questoes,fragmentQuestaoEnade);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -63,10 +64,10 @@ public class SimuladoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 posicao -= 1;
-                FragmentQuestao fragmentQuestao = new FragmentQuestao();
+                FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.questoes,fragmentQuestao);
+                transaction.replace(R.id.questoes,fragmentQuestaoEnade);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
