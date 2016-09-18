@@ -8,21 +8,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import br.com.navi.enadumapp.Model.Aluno;
 import br.com.navi.enadumapp.R;
+import br.com.navi.enadumapp.models.Aluno;
 
 /**
  * Created by Victor Monte on 27/08/2016.
  */
 public class RankingAdapter extends BaseAdapter {
 
-    public ArrayList<Aluno> ranking;
+    public List<Aluno> ranking;
     public FragmentActivity context;
     LayoutInflater inflater = null;
 
-    public RankingAdapter(FragmentActivity ctx, ArrayList<Aluno> ranking)
+    public RankingAdapter(FragmentActivity ctx, List<br.com.navi.enadumapp.models.Aluno> ranking)
     {
         this.context = ctx;
         this.ranking = ranking;
@@ -52,10 +52,10 @@ public class RankingAdapter extends BaseAdapter {
         posicao.setText(String.valueOf(i+1) + "° " + ranking.get(i).getNome());
 
         TextView instituicao = (TextView)row.findViewById(R.id.txtInstituicaoRanking);
-        instituicao.setText(ranking.get(i).getInstituicao());
+        instituicao.setText(ranking.get(i).getInstituicao().getNome());
 
         TextView pontuacao = (TextView)row.findViewById(R.id.txtPontuacao);
-        pontuacao.setText(String.valueOf(ranking.get(i).getPontuacao()) + " pts");
+        pontuacao.setText("x pts");
 
         ImageView avatar = (ImageView)row.findViewById(R.id.ivAvatarRanking);
         switch (i)

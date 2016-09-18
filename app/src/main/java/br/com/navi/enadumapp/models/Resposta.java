@@ -1,14 +1,19 @@
-package br.com.navi.enadumapp.Model;
+package br.com.navi.enadumapp.models;
 
-import java.io.Serializable;
+import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Danilo on 27/08/2016.
+ * Created by Danilo on 17/09/2016.
  */
-public class Resposta implements Serializable{
+public class Resposta {
 
+    @SerializedName("id")
     private Long id;
+
+    @SerializedName("sentenca")
     private String senteca;
+
+    @SerializedName("correta")
     private boolean correta;
 
     public Resposta(){
