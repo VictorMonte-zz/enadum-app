@@ -1,12 +1,14 @@
 package br.com.navi.enadumapp.Utils;
 
-import br.com.navi.enadumapp.Model.Aluno;
-import br.com.navi.enadumapp.Model.Simulado;
+
+
+import br.com.navi.enadumapp.models.Aluno;
+import br.com.navi.enadumapp.models.SimuladoEnade;
 
 /**
  * Created by Victor Monte on 19/08/2016.
  */
 public class SessionRepository {
     public static Aluno aluno = null;
-    public static Simulado simulado = null;
+    public static SimuladoEnade simulado = null;
 }
