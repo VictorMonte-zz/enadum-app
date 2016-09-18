@@ -1,4 +1,4 @@
-package br.com.navi.enadumapp.Model.Resultados;
+package br.com.navi.enadumapp.Model;
 
 import java.io.Serializable;
 
@@ -8,23 +8,23 @@ import java.io.Serializable;
 public class Resposta implements Serializable{
 
     private Long id;
-    private String conteudo;
+    private String senteca;
     private boolean correta;
 
     public Resposta(){
     }
 
-    public Resposta(String conteudo, boolean correta) {
-        this.conteudo = conteudo;
+    public Resposta(String senteca, boolean correta) {
+        this.senteca = senteca;
         this.correta = correta;
     }
 
-    public String getConteudo() {
-        return conteudo;
+    public String getSenteca() {
+        return senteca;
     }
 
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
+    public void setSenteca(String senteca) {
+        this.senteca = senteca;
     }
 
     public boolean isCorreta() {
@@ -45,6 +45,6 @@ public class Resposta implements Serializable{
 
     @Override
     public String toString() {
-        return this.conteudo;
+        return this.senteca;
     }
 }

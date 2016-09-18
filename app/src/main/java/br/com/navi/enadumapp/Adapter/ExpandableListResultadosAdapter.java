@@ -12,19 +12,19 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-import br.com.navi.enadumapp.Model.Resultados.Disciplina;
-import br.com.navi.enadumapp.Model.Resultados.Questao;
+import br.com.navi.enadumapp.Model.Disciplina;
+import br.com.navi.enadumapp.Model.Questao;
 import br.com.navi.enadumapp.R;
 
-public class ExpandableListAdapter extends BaseExpandableListAdapter {
+public class ExpandableListResultadosAdapter extends BaseExpandableListAdapter {
 
     private Context _context;
     private List<Disciplina> _listDataHeader; // header titles
     // child data in format of header title, child title
     private HashMap<Disciplina, List<Questao>> _listDataChild;
 
-    public ExpandableListAdapter(Context context, List<Disciplina> listDataHeader,
-                                 HashMap<Disciplina, List<Questao>> listChildData) {
+    public ExpandableListResultadosAdapter(Context context, List<Disciplina> listDataHeader,
+                                           HashMap<Disciplina, List<Questao>> listChildData) {
         this._context = context;
         this._listDataHeader = listDataHeader;
         this._listDataChild = listChildData;
@@ -57,7 +57,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
                 .findViewById(R.id.cbQuestaoResultado);
 
         cbCorreta.setChecked(questao.isCorreta());
-        cbCorreta.setText(questao.getConteudo());
+        cbCorreta.setText(questao.getEnunciado());
         cbCorreta.setEnabled(false);
 
         return convertView;

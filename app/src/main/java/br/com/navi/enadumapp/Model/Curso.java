@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.navi.enadumapp.Model.Resultados.Disciplina;
-
 /**
  * Created by Danilo on 27/08/2016.
  */
