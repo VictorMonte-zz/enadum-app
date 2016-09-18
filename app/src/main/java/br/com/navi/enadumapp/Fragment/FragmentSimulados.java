@@ -9,23 +9,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.navi.enadumapp.Adapter.ExpandableListResultadosAdapter;
+import br.com.navi.enadumapp.Adapter.ExpandableListSimuladosAdapter;
 import br.com.navi.enadumapp.R;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.Aluno;
 import br.com.navi.enadumapp.models.Curso;
+import br.com.navi.enadumapp.models.SimuladoEnade;
 
 /**
  * Created by Victor Monte on 17/08/2016.
  */
 public class FragmentSimulados extends Fragment {
 
-    private ListView listViewDisciplinas;
-    Aluno aluno;
+    private Aluno aluno;
+    private List<Curso> listDataHeader;
+    private HashMap<Curso, List<SimuladoEnade>> listDataChild;
+
+    private ExpandableListView elvSimulados;
+    private ExpandableListSimuladosAdapter listAdapter;
 
     @Nullable
     @Override
@@ -33,23 +42,19 @@ public class FragmentSimulados extends Fragment {
 
         View layoutSimulados = inflater.inflate(R.layout.fragment_simulados,container,false);
 
-        this.listViewDisciplinas = (ListView) layoutSimulados.findViewById(R.id.lista_simulados_listview);
+        elvSimulados = (ExpandableListView) getView().findViewById(R.id.elvSimulados);
 
-        aluno = SessionRepository.aluno;
+        listAdapter = new ExpandableListSimuladosAdapter(getActivity(), listDataHeader, listDataChild);
 
-        List<Curso> cursos = new LinkedList<Curso>(aluno.getCursos());
+        listDataHeader = SessionRepository.aluno.getCursos();
 
-        this.listViewDisciplinas.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, cursos));
+        listDataChild = new HashMap<Curso, List<SimuladoEnade>>();
+        for(Curso curso : SessionRepository.aluno.getCursos()) {
+            listDataChild.put(curso, curso.getCursoMEC().getSimuladosEnade());
+        }
 
-//        this.listViewDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Disciplina selecionada  = (Disciplina) adapterView.getItemAtPosition(i);
-//
-//                Intent fazerSimulado  = new Intent(getActivity(), SimuladoActivity.class);
-//                startActivity(fazerSimulado);
-//            }
-//        });
+        // setting list adapter
+        elvSimulados.setAdapter(listAdapter);
 
         return layoutSimulados;
     }
