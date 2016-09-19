@@ -1,8 +1,9 @@
 package br.com.navi.enadumapp;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -12,10 +13,13 @@ import br.com.navi.enadumapp.Fragment.FragmentQuestaoEnade;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.SimuladoEnade;
 
-public class SimuladoActivity extends AppCompatActivity {
+/**
+ * Created by Danilo on 18/09/2016.
+ */
 
-    private TextView materia;
-    private TextView fonte;
+public class SimuladoEnadeActivity extends AppCompatActivity {
+
+    private TextView curso;
     private Chronometer cronometro;
     private SimuladoEnade simulado;
     private Button btnNext;
@@ -23,26 +27,23 @@ public class SimuladoActivity extends AppCompatActivity {
     private static int posicao;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simulado);
+        setContentView(R.layout.activity_simulado_enade);
 
         this.simulado = SessionRepository.simulado;
+        this.curso = (TextView) findViewById(R.id.simulado_curso);
+        this.cronometro = (Chronometer) findViewById(R.id.chronometer2);
+        this.btnNext = (Button) findViewById(R.id.simulado_btn_next);
+        this.btnPrev = (Button) findViewById(R.id.simulado_btn_previous);
 
-        this.materia = (TextView) findViewById(R.id.simulado_materia);
-        this.fonte = (TextView) findViewById(R.id.simulado_fonte);
-        this.cronometro = (Chronometer) findViewById(R.id.simulado_timer);
-        this.btnNext = (Button) findViewById(R.id.questao_button_proxima);
-        this.btnPrev = (Button) findViewById(R.id.questao_button_anterior);
-
-        this.materia.setText(simulado.getTitulo());
-        this.fonte.setText("Enade");
+        this.curso.setText(simulado.getTitulo());
         this.cronometro.start();
 
         FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.questoes,fragmentQuestaoEnade);
+        transaction.replace(R.id.fragmento,fragmentQuestaoEnade);
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -53,7 +54,7 @@ public class SimuladoActivity extends AppCompatActivity {
                 FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.questoes,fragmentQuestaoEnade);
+                transaction.replace(R.id.fragmento,fragmentQuestaoEnade);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
@@ -66,13 +67,11 @@ public class SimuladoActivity extends AppCompatActivity {
                 FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.questoes,fragmentQuestaoEnade);
+                transaction.replace(R.id.fragmento,fragmentQuestaoEnade);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
-
-
     }
 
     public SimuladoEnade getSimulado(){
@@ -82,6 +81,4 @@ public class SimuladoActivity extends AppCompatActivity {
     public int getPosicao(){
         return this.posicao;
     }
-
-
 }

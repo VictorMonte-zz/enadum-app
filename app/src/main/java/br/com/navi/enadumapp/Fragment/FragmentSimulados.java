@@ -16,6 +16,7 @@ import java.util.List;
 
 import br.com.navi.enadumapp.R;
 import br.com.navi.enadumapp.SimuladoActivity;
+import br.com.navi.enadumapp.SimuladoEnadeActivity;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.Aluno;
 import br.com.navi.enadumapp.models.Curso;
@@ -49,7 +50,7 @@ public class FragmentSimulados extends Fragment {
 
                 SessionRepository.simulado =  selecionado.getCursoMEC().getSimuladosEnade().get(0);
 
-                Intent fazerSimulado  = new Intent(getActivity(), SimuladoActivity.class);
+                Intent fazerSimulado  = new Intent(getActivity(), SimuladoEnadeActivity.class);
                 startActivity(fazerSimulado);
             }
         });
