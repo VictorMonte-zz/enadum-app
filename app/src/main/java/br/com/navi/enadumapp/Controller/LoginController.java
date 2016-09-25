@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import java.io.IOException;
-
 import br.com.navi.enadumapp.HomeActivity;
 import br.com.navi.enadumapp.LoginActivity;
 import br.com.navi.enadumapp.Utils.SessionRepository;
