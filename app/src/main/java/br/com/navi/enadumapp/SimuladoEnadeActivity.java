@@ -20,6 +20,7 @@ import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.DTO.AlunoDTO;
 import br.com.navi.enadumapp.models.DTO.RespostaDTO;
 import br.com.navi.enadumapp.models.DTO.SimuladoDTO;
+import br.com.navi.enadumapp.models.Resposta;
 import br.com.navi.enadumapp.models.SimuladoEnade;
 
 /**
@@ -38,6 +39,7 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
     private SimuladoDTO simuladoDTO;
     private AlunoDTO alunoDTO;
     private List<RespostaDTO> respostasDTO;
+    private List<Resposta> respostas = new LinkedList<Resposta>();
     FragmentQuestaoEnade fragmentQuestaoEnade;
 
     @Override
@@ -49,7 +51,7 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
         this.curso = (TextView) findViewById(R.id.simulado_curso);
         this.cronometro = (Chronometer) findViewById(R.id.chronometer2);
         this.btnNext = (Button) findViewById(R.id.simulado_btn_next);
-        this.btnPrev = (Button) findViewById(R.id.simulado_btn_previous);
+//        this.btnPrev = (Button) findViewById(R.id.simulado_btn_previous);
         this.curso.setText(simulado.getTitulo());
         this.cronometro.start();
 
@@ -72,6 +74,9 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
                 }
                 if (posicao == simulado.getQuestoes().size() - 1){
                     Toast.makeText(SimuladoEnadeActivity.this,"Final do Simulado", Toast.LENGTH_SHORT).show();
+                    for (Resposta resposta : respostas){
+                        Log.d("teste",resposta.getSenteca());
+                    }
                 } else {
                     posicao += 1;
                     moveQuestion();
@@ -79,22 +84,22 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
             }
         });
 
-        btnPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RespostaDTO respostaDTO = new RespostaDTO();
-                respostaDTO.setId(fragmentQuestaoEnade.getId()) ;
-                if (respostaDTO.getId() != null){
-                    respostasDTO.add(respostaDTO);
-                }
-                if (posicao == 0){
-                    Toast.makeText(SimuladoEnadeActivity.this,"Deseja sair do simulado",Toast.LENGTH_SHORT).show();
-                } else {
-                    posicao -= 1;
-                    moveQuestion();
-                }
-            }
-        });
+//        btnPrev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                RespostaDTO respostaDTO = new RespostaDTO();
+//                respostaDTO.setId(fragmentQuestaoEnade.getId()) ;
+//                if (respostaDTO.getId() != null){
+//                    respostasDTO.add(respostaDTO);
+//                }
+//                if (posicao == 0){
+//                    Toast.makeText(SimuladoEnadeActivity.this,"Deseja sair do simulado",Toast.LENGTH_SHORT).show();
+//                } else {
+//                    posicao -= 1;
+//                    moveQuestion();
+//                }
+//            }
+//        });
     }
 
     private void moveQuestion() {
@@ -112,5 +117,9 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
 
     public int getPosicao(){
         return this.posicao;
+    }
+
+    public void addResposta(Resposta resposta){
+        this.respostas.add(resposta);
     }
 }

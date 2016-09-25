@@ -104,7 +104,7 @@ public class ExpandableListResultadosEnadeAdapter extends BaseExpandableListAdap
                 .findViewById(R.id.lblPontuacao);
 
         lblDisciplina.setTypeface(null, Typeface.NORMAL);
-        lblDisciplina.setText(resultadoEnade.getId().toString());
+        lblDisciplina.setText("Simulado " + resultadoEnade.getId().toString());
 
 
         return convertView;

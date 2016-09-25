@@ -34,6 +34,8 @@ public class FragmentQuestaoEnade extends Fragment{
     private ListView listaDeRespostas;
     private List<Resposta> respostas;
     private Integer idResposta;
+    private Resposta resposta;
+    private SimuladoEnadeActivity activity;
 
     @Nullable
     @Override
@@ -43,11 +45,10 @@ public class FragmentQuestaoEnade extends Fragment{
         this.enunciado = (TextView) view.findViewById(R.id.questao_enade_enunciado);
         this.listaDeRespostas = (ListView) view.findViewById(R.id.questao_enade_respostas);
 
-        SimuladoEnadeActivity activity = (SimuladoEnadeActivity) getActivity();
+        activity = (SimuladoEnadeActivity) getActivity();
         SimuladoEnade simuladoEnade = activity.getSimulado();
 
         this.questaoEnade = simuladoEnade.getQuestao(activity.getPosicao());
-        questaoEnade.setEnunciado("oloko");
         this.enunciado.setText(questaoEnade.getEnunciado());
         this.respostas = questaoEnade.getRespostas();
 
@@ -56,15 +57,23 @@ public class FragmentQuestaoEnade extends Fragment{
         this.listaDeRespostas.setAdapter(adapter);
         setListViewHeightBasedOnChildren(listaDeRespostas);
 
-        listaDeRespostas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Resposta resposta = (Resposta)adapterView.getItemAtPosition(i);
-                idResposta = (int)(long)resposta.getId();
-            }
-        });
-
+//        listaDeRespostas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                resposta = (Resposta)adapterView.getItemAtPosition(i);
+////                idResposta = (int)(long)resposta.getId();
+//            }
+//        });
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        int position = listaDeRespostas.getCheckedItemPosition();
+        resposta = (Resposta) listaDeRespostas.getItemAtPosition(position);
+        activity.addResposta(resposta);
     }
 
     public void setListViewHeightBasedOnChildren(ListView listView) {
