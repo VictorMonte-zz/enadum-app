@@ -68,6 +68,13 @@ public class FragmentSimulados extends Fragment {
         // setting list adapter
         elvSimulados.setAdapter(listAdapter);
 
+                SessionRepository.simulado =  selecionado.getCursoMEC().getSimuladosEnade().get(0);
+
+                Intent fazerSimulado  = new Intent(getActivity(), SimuladoEnadeActivity.class);
+                startActivity(fazerSimulado);
+            }
+        });
+
         return layoutSimulados;
     }
 

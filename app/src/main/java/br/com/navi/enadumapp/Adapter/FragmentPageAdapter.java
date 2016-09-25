@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import br.com.navi.enadumapp.Fragment.FragmentRanking;
-import br.com.navi.enadumapp.Fragment.FragmentResultados;
+import br.com.navi.enadumapp.Fragment.FragmentResultadosEnade;
 import br.com.navi.enadumapp.Fragment.FragmentSimulados;
 
 /**
@@ -26,7 +26,7 @@ public class FragmentPageAdapter extends FragmentPagerAdapter {
             case 0:
                 return new FragmentSimulados();
             case 1:
-                return new FragmentResultados();
+                return new FragmentResultadosEnade();
             case 2:
                 return new FragmentRanking();
             default:

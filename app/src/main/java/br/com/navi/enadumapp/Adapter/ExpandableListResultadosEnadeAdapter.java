@@ -1,8 +1,5 @@
 package br.com.navi.enadumapp.Adapter;
 
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -12,24 +9,28 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
-
+import java.util.HashMap;
+import java.util.List;
 
 import br.com.navi.enadumapp.R;
-import br.com.navi.enadumapp.models.Disciplina;
-import br.com.navi.enadumapp.models.Questao;
+import br.com.navi.enadumapp.models.Resposta;
+import br.com.navi.enadumapp.models.ResultadoEnade;
 
-public class ExpandableListResultadosAdapter extends BaseExpandableListAdapter {
+/**
+ * Created by Danilo on 25/09/2016.
+ */
+
+public class ExpandableListResultadosEnadeAdapter extends BaseExpandableListAdapter{
 
     private Context _context;
-    private List<Disciplina> _listDataHeader; // header titles
-    // child data in format of header title, child title
-    private HashMap<Disciplina, List<Questao>> _listDataChild;
+    private List<ResultadoEnade> _listDataHeader;
+    private HashMap<ResultadoEnade, List<Resposta>> _listDataChild;
 
-    public ExpandableListResultadosAdapter(Context context, List<Disciplina> listDataHeader,
-                                           HashMap<Disciplina, List<Questao>> listChildData) {
+    public ExpandableListResultadosEnadeAdapter(Context context, List<ResultadoEnade> listDataHeader,
+                                                HashMap<ResultadoEnade, List<Resposta>> listDataChild) {
         this._context = context;
         this._listDataHeader = listDataHeader;
-        this._listDataChild = listChildData;
+        this._listDataChild = listDataChild;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class ExpandableListResultadosAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
 
-        final Questao questao = (Questao) getChild(groupPosition, childPosition);
+        final Resposta resposta = (Resposta) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) this._context
@@ -58,7 +59,8 @@ public class ExpandableListResultadosAdapter extends BaseExpandableListAdapter {
         CheckBox cbCorreta = (CheckBox) convertView
                 .findViewById(R.id.cbQuestaoResultado);
 
-        cbCorreta.setText(questao.getEnunciado());
+        cbCorreta.setChecked(resposta.isCorreta());
+        cbCorreta.setText(resposta.getSenteca());
         cbCorreta.setEnabled(false);
 
         return convertView;
@@ -88,7 +90,8 @@ public class ExpandableListResultadosAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        Disciplina disciplina = (Disciplina) getGroup(groupPosition);
+
+        ResultadoEnade resultadoEnade = (ResultadoEnade) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this._context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -96,12 +99,12 @@ public class ExpandableListResultadosAdapter extends BaseExpandableListAdapter {
         }
 
         TextView lblDisciplina = (TextView) convertView
-                .findViewById(R.id.lblDisciplina);
+                .findViewById(R.id.lblSimulado);
         TextView lblPontuacao = (TextView) convertView
                 .findViewById(R.id.lblPontuacao);
 
         lblDisciplina.setTypeface(null, Typeface.NORMAL);
-        lblDisciplina.setText(disciplina.getNome());
+        lblDisciplina.setText("Simulado " + resultadoEnade.getId().toString());
 
 
         return convertView;
