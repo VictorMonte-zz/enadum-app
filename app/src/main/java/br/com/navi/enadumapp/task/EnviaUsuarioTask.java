@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import br.com.navi.enadumapp.Controller.LoginController;
-import br.com.navi.enadumapp.LoginActivity;
 import br.com.navi.enadumapp.Request.LoginRequest;
 import br.com.navi.enadumapp.models.Aluno;
 

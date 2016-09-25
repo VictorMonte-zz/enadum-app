@@ -1,26 +1,20 @@
 package br.com.navi.enadumapp.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
-import android.widget.ListView;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
-import br.com.navi.enadumapp.Adapter.ExpandableListResultadosAdapter;
 import br.com.navi.enadumapp.Adapter.ExpandableListSimuladosAdapter;
+import br.com.navi.enadumapp.Controller.SimuladoController;
 import br.com.navi.enadumapp.R;
-import br.com.navi.enadumapp.SimuladoActivity;
-import br.com.navi.enadumapp.SimuladoEnadeActivity;
+import br.com.navi.enadumapp.Request.SimuladoRequest;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.Aluno;
 import br.com.navi.enadumapp.models.Curso;
@@ -30,6 +24,8 @@ import br.com.navi.enadumapp.models.SimuladoEnade;
  * Created by Victor Monte on 17/08/2016.
  */
 public class FragmentSimulados extends Fragment {
+
+    private SimuladoController controller;
 
     private Aluno aluno;
     private List<Curso> listDataHeader;
@@ -42,11 +38,11 @@ public class FragmentSimulados extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        controller = new SimuladoController(getActivity());
+
         View layoutSimulados = inflater.inflate(R.layout.fragment_simulados,container,false);
 
-        elvSimulados = (ExpandableListView) getView().findViewById(R.id.elvSimulados);
-
-        listAdapter = new ExpandableListSimuladosAdapter(getActivity(), listDataHeader, listDataChild);
+        elvSimulados = (ExpandableListView) layoutSimulados.findViewById(R.id.elvSimulados);
 
         listDataHeader = SessionRepository.aluno.getCursos();
 
@@ -55,10 +51,22 @@ public class FragmentSimulados extends Fragment {
             listDataChild.put(curso, curso.getCursoMEC().getSimuladosEnade());
         }
 
-        this.listViewDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listAdapter = new ExpandableListSimuladosAdapter(getActivity(), listDataHeader, listDataChild);
+
+        elvSimulados.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Curso selecionado  = (Curso) adapterView.getItemAtPosition(i);
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+
+                Curso curso  = (Curso) elvSimulados.getItemAtPosition(groupPosition);
+
+                controller.obterSimulado(curso.getCursoMEC().getSimuladosEnade().get(childPosition).getId());
+
+                return false;
+            }
+        });
+
+        // setting list adapter
+        elvSimulados.setAdapter(listAdapter);
 
                 SessionRepository.simulado =  selecionado.getCursoMEC().getSimuladosEnade().get(0);
 

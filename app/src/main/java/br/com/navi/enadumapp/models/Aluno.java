@@ -5,11 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import java.util.LinkedList;
 import java.util.List;
 
-import br.com.navi.enadumapp.models.Curso;
-import br.com.navi.enadumapp.models.Instituicao;
-import br.com.navi.enadumapp.models.Usuario;
-import br.com.navi.enadumapp.models.SimuladoEnade;
-
 /**
  * Created by Danilo on 17/09/2016.
  */
