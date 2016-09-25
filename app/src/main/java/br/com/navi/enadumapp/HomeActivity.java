@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
             int i = 0;
             for(Curso curso : cursos){
                 txtCursos += curso.getNome();
-                if(i != cursos.size()){
+                if(i != cursos.size() -1){
                     txtCursos += "\n";
                 }
             }

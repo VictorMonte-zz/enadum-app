@@ -8,8 +8,11 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
-import br.com.navi.enadumapp.Fragment.FragmentQuestao;
+import java.util.List;
+
+import br.com.navi.enadumapp.Fragment.FragmentQuestaoEnade;
 import br.com.navi.enadumapp.Utils.SessionRepository;
+import br.com.navi.enadumapp.models.Resposta;
 import br.com.navi.enadumapp.models.SimuladoEnade;
 
 public class SimuladoActivity extends AppCompatActivity {
@@ -21,6 +24,7 @@ public class SimuladoActivity extends AppCompatActivity {
     private Button btnNext;
     private Button btnPrev;
     private static int posicao;
+    private List<Resposta> respostas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +43,10 @@ public class SimuladoActivity extends AppCompatActivity {
         this.fonte.setText("Enade");
         this.cronometro.start();
 
-        FragmentQuestao fragmentQuestao = new FragmentQuestao();
+        FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.questoes,fragmentQuestao);
+        transaction.replace(R.id.questoes,fragmentQuestaoEnade);
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -50,27 +54,27 @@ public class SimuladoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 posicao += 1;
-                FragmentQuestao fragmentQuestao = new FragmentQuestao();
+                FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.questoes,fragmentQuestao);
+                transaction.replace(R.id.questoes,fragmentQuestaoEnade);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
 
-        btnPrev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                posicao -= 1;
-                FragmentQuestao fragmentQuestao = new FragmentQuestao();
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.questoes,fragmentQuestao);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+//        btnPrev.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                posicao -= 1;
+//                FragmentQuestaoEnade fragmentQuestaoEnade = new FragmentQuestaoEnade();
+//
+//                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//                transaction.replace(R.id.questoes,fragmentQuestaoEnade);
+//                transaction.addToBackStack(null);
+//                transaction.commit();
+//            }
+//        });
 
 
     }
@@ -81,6 +85,10 @@ public class SimuladoActivity extends AppCompatActivity {
 
     public int getPosicao(){
         return this.posicao;
+    }
+
+    public void addResposta(Resposta resposta){
+        this.respostas.add(resposta);
     }
 
 

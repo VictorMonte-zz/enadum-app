@@ -19,6 +19,8 @@ import java.util.List;
 import br.com.navi.enadumapp.Adapter.ExpandableListResultadosAdapter;
 import br.com.navi.enadumapp.Adapter.ExpandableListSimuladosAdapter;
 import br.com.navi.enadumapp.R;
+import br.com.navi.enadumapp.SimuladoActivity;
+import br.com.navi.enadumapp.SimuladoEnadeActivity;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.Aluno;
 import br.com.navi.enadumapp.models.Curso;
@@ -53,8 +55,17 @@ public class FragmentSimulados extends Fragment {
             listDataChild.put(curso, curso.getCursoMEC().getSimuladosEnade());
         }
 
-        // setting list adapter
-        elvSimulados.setAdapter(listAdapter);
+        this.listViewDisciplinas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Curso selecionado  = (Curso) adapterView.getItemAtPosition(i);
+
+                SessionRepository.simulado =  selecionado.getCursoMEC().getSimuladosEnade().get(0);
+
+                Intent fazerSimulado  = new Intent(getActivity(), SimuladoEnadeActivity.class);
+                startActivity(fazerSimulado);
+            }
+        });
 
         return layoutSimulados;
     }
