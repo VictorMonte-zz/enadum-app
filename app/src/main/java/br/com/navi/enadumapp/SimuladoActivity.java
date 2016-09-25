@@ -24,7 +24,7 @@ public class SimuladoActivity extends AppCompatActivity {
     private Button btnNext;
     private Button btnPrev;
     private static int posicao;
-    private List<Resposta> respostas;
+    private List<Resposta>  respostas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
