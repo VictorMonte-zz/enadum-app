@@ -5,36 +5,30 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import java.util.List;
-
-import br.com.navi.enadumapp.HomeActivity;
-import br.com.navi.enadumapp.LoginActivity;
+import br.com.navi.enadumapp.Fragment.FragmentSimulados;
+import br.com.navi.enadumapp.Request.SimuladoRequest;
+import br.com.navi.enadumapp.SimuladoActivity;
 import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.API.HttpAPI;
 import br.com.navi.enadumapp.models.API.ServiceGenerator;
-import br.com.navi.enadumapp.Request.LoginRequest;
-import br.com.navi.enadumapp.models.Aluno;
 import br.com.navi.enadumapp.models.SimuladoEnade;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * Created by Danilo on 17/09/2016.
+ * Created by Pichau on 25/09/2016.
  */
 
-public class LoginController {
+public class SimuladoController {
 
-    LoginActivity activity;
+    FragmentSimulados fragment;
     Context context;
 
-    public LoginController(Context context){
-        this.context = context;
-    }
+    public SimuladoController(Context context) { this.context = context; }
 
-    public void login(LoginRequest loginRequest){
-
-        Log.d("logLevel", "called loginController");
+    public void obterSimulado(int id)
+    {
         final ProgressDialog mProgressDialog = new ProgressDialog(context);
         mProgressDialog.setIndeterminate(true);
         mProgressDialog.setCancelable(false);
@@ -42,27 +36,22 @@ public class LoginController {
         mProgressDialog.show();
 
         HttpAPI api = ServiceGenerator.createService(HttpAPI.class);
-        Call<Aluno> call = api.getAluno(loginRequest);
-        call.enqueue(new Callback<Aluno>() {
-
+        Call<SimuladoEnade> call = api.getSimuladoEnade(id);
+        call.enqueue(new Callback<SimuladoEnade>() {
             @Override
-            public void onResponse(Call<Aluno> call, Response<Aluno> response) {
-                Log.d("LogLevel", "onResponse is called");
-                Log.d("Status", "OK");
-                if (response.isSuccessful()) {
-                    Log.d("Status", "Response raw(): " + response.raw());
-                    Log.d("Status", "Response body(): " + response.body());
-                    SessionRepository.aluno = response.body();
+            public void onResponse(Call<SimuladoEnade> call, Response<SimuladoEnade> response) {
+                if(response.isSuccessful())
+                {
+                    SessionRepository.simulado = response.body();
+                    context.startActivity(new Intent(context, SimuladoActivity.class));
 
-
-                    context.startActivity(new Intent(context, HomeActivity.class));
-
-
-                    if (mProgressDialog.isShowing()){
+                    if (mProgressDialog.isShowing())
+                    {
                         mProgressDialog.dismiss();
                     }
-
-                } else {
+                }
+                else
+                {
                     Log.d("Status", "message: " + response.message());
                     Log.d("Status", "body: " + response.errorBody());
                     Log.d("Status", "raw: " + response.raw());
@@ -75,7 +64,7 @@ public class LoginController {
             }
 
             @Override
-            public void onFailure(Call<Aluno> call, Throwable t) {
+            public void onFailure(Call<SimuladoEnade> call, Throwable t) {
                 Log.d("Status", "FAIL: " + t.getMessage());
 
                 if (mProgressDialog.isShowing()){
@@ -85,4 +74,5 @@ public class LoginController {
         });
 
     }
+
 }

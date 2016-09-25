@@ -2,16 +2,19 @@ package br.com.navi.enadumapp.models.API;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.Response;
 
 import br.com.navi.enadumapp.Request.LoginRequest;
+import br.com.navi.enadumapp.Request.SimuladoRequest;
 import br.com.navi.enadumapp.models.Aluno;
+import br.com.navi.enadumapp.models.SimuladoEnade;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface HttpAPI {
 
@@ -21,6 +24,9 @@ public interface HttpAPI {
     //@POST("xp8u7xxp")
     @POST("enadumweb/services/loginAluno")
     Call<Aluno> getAluno(@Body LoginRequest loginRequest);
+
+    @GET("enadumweb/services/buscaSimulado")
+    Call<SimuladoEnade> getSimuladoEnade(@Query("id") int id);
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")

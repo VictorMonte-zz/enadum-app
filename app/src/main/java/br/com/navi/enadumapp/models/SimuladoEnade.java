@@ -2,10 +2,8 @@ package br.com.navi.enadumapp.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Danilo on 17/09/2016.
