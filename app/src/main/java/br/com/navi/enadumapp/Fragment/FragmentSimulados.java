@@ -40,9 +40,7 @@ public class FragmentSimulados extends Fragment {
 
         View layoutSimulados = inflater.inflate(R.layout.fragment_simulados,container,false);
 
-        elvSimulados = (ExpandableListView) getView().findViewById(R.id.elvSimulados);
-
-        listAdapter = new ExpandableListSimuladosAdapter(getActivity(), listDataHeader, listDataChild);
+        elvSimulados = (ExpandableListView) layoutSimulados.findViewById(R.id.elvSimulados);
 
         listDataHeader = SessionRepository.aluno.getCursos();
 
@@ -50,6 +48,8 @@ public class FragmentSimulados extends Fragment {
         for(Curso curso : SessionRepository.aluno.getCursos()) {
             listDataChild.put(curso, curso.getCursoMEC().getSimuladosEnade());
         }
+
+        listAdapter = new ExpandableListSimuladosAdapter(getActivity(), listDataHeader, listDataChild);
 
         elvSimulados.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override

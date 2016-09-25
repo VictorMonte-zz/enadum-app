@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.util.List;
+
 import br.com.navi.enadumapp.HomeActivity;
 import br.com.navi.enadumapp.LoginActivity;
 import br.com.navi.enadumapp.Utils.SessionRepository;
@@ -12,6 +14,7 @@ import br.com.navi.enadumapp.models.API.HttpAPI;
 import br.com.navi.enadumapp.models.API.ServiceGenerator;
 import br.com.navi.enadumapp.Request.LoginRequest;
 import br.com.navi.enadumapp.models.Aluno;
+import br.com.navi.enadumapp.models.SimuladoEnade;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,8 +53,13 @@ public class LoginController {
                     Log.d("Status", "Response raw(): " + response.raw());
                     Log.d("Status", "Response body(): " + response.body());
                     SessionRepository.aluno = response.body();
+                    List<SimuladoEnade> simulados = SessionRepository.aluno.getSimuladosEnade();
+                    for(SimuladoEnade simuladoEnade : simulados){
+                        Log.d("teste", simuladoEnade.getTitulo());
+                    }
+
                     context.startActivity(new Intent(context, HomeActivity.class));
-                    Log.d("Aluno SR", SessionRepository.aluno.getNome());
+
 
                     if (mProgressDialog.isShowing()){
                         mProgressDialog.dismiss();

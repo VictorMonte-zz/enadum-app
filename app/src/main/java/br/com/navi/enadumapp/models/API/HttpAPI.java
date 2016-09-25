@@ -20,8 +20,7 @@ import retrofit2.http.POST;
 
 public interface HttpAPI {
 
-    String endpoint = "http://192.168.0.17:8080/";
-    //String endpoint = "http://10.0.2.2:8080/";
+    String endpoint = "http://10.0.2.2:8080/";
     //String endpoint = "http://requestb.in/";
 
     //@POST("xp8u7xxp")
