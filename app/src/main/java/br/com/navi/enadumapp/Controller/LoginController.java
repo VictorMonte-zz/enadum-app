@@ -53,10 +53,7 @@ public class LoginController {
                     Log.d("Status", "Response raw(): " + response.raw());
                     Log.d("Status", "Response body(): " + response.body());
                     SessionRepository.aluno = response.body();
-                    List<SimuladoEnade> simulados = SessionRepository.aluno.getSimuladosEnade();
-                    for(SimuladoEnade simuladoEnade : simulados){
-                        Log.d("teste", simuladoEnade.getTitulo());
-                    }
+
 
                     context.startActivity(new Intent(context, HomeActivity.class));
 

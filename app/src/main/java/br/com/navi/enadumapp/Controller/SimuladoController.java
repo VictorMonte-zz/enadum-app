@@ -27,7 +27,7 @@ public class SimuladoController {
 
     public SimuladoController(Context context) { this.context = context; }
 
-    public void obterSimulado(SimuladoRequest simuladoRequest)
+    public void obterSimulado(int id)
     {
         final ProgressDialog mProgressDialog = new ProgressDialog(context);
         mProgressDialog.setIndeterminate(true);
@@ -36,7 +36,7 @@ public class SimuladoController {
         mProgressDialog.show();
 
         HttpAPI api = ServiceGenerator.createService(HttpAPI.class);
-        Call<SimuladoEnade> call = api.getSimuladoEnade(simuladoRequest);
+        Call<SimuladoEnade> call = api.getSimuladoEnade(id);
         call.enqueue(new Callback<SimuladoEnade>() {
             @Override
             public void onResponse(Call<SimuladoEnade> call, Response<SimuladoEnade> response) {

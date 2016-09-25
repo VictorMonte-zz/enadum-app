@@ -25,7 +25,7 @@ import br.com.navi.enadumapp.models.SimuladoEnade;
  */
 public class FragmentSimulados extends Fragment {
 
-    private SimuladoController controller = new SimuladoController(this.getContext());
+    private SimuladoController controller;
 
     private Aluno aluno;
     private List<Curso> listDataHeader;
@@ -37,6 +37,8 @@ public class FragmentSimulados extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        controller = new SimuladoController(getActivity());
 
         View layoutSimulados = inflater.inflate(R.layout.fragment_simulados,container,false);
 
@@ -55,11 +57,9 @@ public class FragmentSimulados extends Fragment {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 
-                controller.obterSimulado(
-                        new SimuladoRequest(
-                                SessionRepository.aluno.getSimuladosEnade().get(childPosition).getId()
-                        )
-                );
+                Curso curso  = (Curso) elvSimulados.getItemAtPosition(groupPosition);
+
+                controller.obterSimulado(curso.getCursoMEC().getSimuladosEnade().get(childPosition).getId());
 
                 return false;
             }

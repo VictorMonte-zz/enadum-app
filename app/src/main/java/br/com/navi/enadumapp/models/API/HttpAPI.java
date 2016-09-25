@@ -13,6 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by Danilo on 17/09/2016.
@@ -28,7 +30,7 @@ public interface HttpAPI {
     Call<Aluno> getAluno(@Body LoginRequest loginRequest);
 
     @GET("enadumweb/services/buscaSimulado")
-    Call<SimuladoEnade> getSimuladoEnade(@Body SimuladoRequest simuladoRequest);
+    Call<SimuladoEnade> getSimuladoEnade(@Query("id") int id);
 
     Gson gson = new GsonBuilder()
             .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
