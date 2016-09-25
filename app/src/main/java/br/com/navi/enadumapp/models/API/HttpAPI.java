@@ -13,10 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
-/**
- * Created by Danilo on 17/09/2016.
- */
-
 public interface HttpAPI {
 
     String endpoint = "http://10.0.2.2:8080/";

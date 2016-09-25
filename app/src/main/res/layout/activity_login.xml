@@ -20,7 +20,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:paddingTop="50dp"/>
+        android:paddingTop="50dp"
+        android:singleLine="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -33,19 +34,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:entries="@array/instituicoes"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/txtCPF"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:singleLine="true" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -63,7 +53,7 @@
         android:id="@+id/btnLogar"
         android:background="@color/colorAccent"
         android:layout_marginTop="42dp"
-        android:layout_below="@+id/spinner"
+        android:layout_below="@+id/txtCPF"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"

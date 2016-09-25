@@ -89,7 +89,7 @@ public class FragmentQuestaoEnade extends Fragment{
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = (totalHeight/5) + (listView.getDividerHeight() * (listAdapter.getCount() - 1) - 180);
+        params.height = (totalHeight/9) + (listView.getDividerHeight() * (listAdapter.getCount() - 1) - 180);
         listView.setLayoutParams(params);
         listView.requestLayout();
     }

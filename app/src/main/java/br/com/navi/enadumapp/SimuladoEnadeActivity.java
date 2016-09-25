@@ -85,7 +85,7 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
                 RespostaDTO respostaDTO = new RespostaDTO();
                 respostaDTO.setId(fragmentQuestaoEnade.getId()) ;
                 if (respostaDTO.getId() != null){
-                    respostasDTO.set(posicao,respostaDTO);
+                    respostasDTO.add(respostaDTO);
                 }
                 if (posicao == 0){
                     Toast.makeText(SimuladoEnadeActivity.this,"Deseja sair do simulado",Toast.LENGTH_SHORT).show();
