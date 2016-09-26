@@ -32,7 +32,7 @@ public class LoginController {
         this.context = context;
     }
 
-    public void login(LoginRequest loginRequest){
+    public void login(final LoginRequest loginRequest){
 
         Log.d("logLevel", "called loginController");
         final ProgressDialog mProgressDialog = new ProgressDialog(context);
@@ -52,6 +52,7 @@ public class LoginController {
                 if (response.isSuccessful()) {
                     Log.d("Status", "Response raw(): " + response.raw());
                     Log.d("Status", "Response body(): " + response.body());
+                    SessionRepository.loginRequest = loginRequest;
                     SessionRepository.aluno = response.body();
 
 

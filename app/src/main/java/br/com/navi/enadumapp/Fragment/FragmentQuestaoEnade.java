@@ -17,7 +17,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.navi.enadumapp.R;
-import br.com.navi.enadumapp.SimuladoActivity;
 import br.com.navi.enadumapp.SimuladoEnadeActivity;
 import br.com.navi.enadumapp.models.QuestaoEnade;
 import br.com.navi.enadumapp.models.Resposta;
@@ -57,13 +56,6 @@ public class FragmentQuestaoEnade extends Fragment{
         this.listaDeRespostas.setAdapter(adapter);
         setListViewHeightBasedOnChildren(listaDeRespostas);
 
-//        listaDeRespostas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                resposta = (Resposta)adapterView.getItemAtPosition(i);
-////                idResposta = (int)(long)resposta.getId();
-//            }
-//        });
         return view;
     }
 
@@ -71,10 +63,25 @@ public class FragmentQuestaoEnade extends Fragment{
     public void onDestroyView() {
         super.onDestroyView();
 
+        Log.d("Destroy", "destruiu um fragment");
         int position = listaDeRespostas.getCheckedItemPosition();
         resposta = (Resposta) listaDeRespostas.getItemAtPosition(position);
-        activity.addResposta(resposta);
+        if(resposta != null){
+            activity.addResposta(resposta);
+        }
     }
+
+//    @Override
+//    public void onPause() {
+//        super.onPause();
+//
+//        Log.d("Pause", "pausou um fragment");
+//        int position = listaDeRespostas.getCheckedItemPosition();
+//        resposta = (Resposta) listaDeRespostas.getItemAtPosition(position);
+//        if (resposta != null){
+//            activity.addResposta(resposta);
+//        }
+//    }
 
     public void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();

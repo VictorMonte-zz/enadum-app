@@ -1,5 +1,6 @@
 package br.com.navi.enadumapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -11,9 +12,13 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.ResponseCache;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.navi.enadumapp.Controller.LoginController;
+import br.com.navi.enadumapp.Controller.SimuladoController;
+import br.com.navi.enadumapp.Fragment.FragmentLoading;
 import br.com.navi.enadumapp.Fragment.FragmentQuestaoEnade;
 import br.com.navi.enadumapp.Request.ResultadoRequest;
 import br.com.navi.enadumapp.Utils.SessionRepository;
@@ -41,6 +46,8 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
     private List<RespostaDTO> respostasDTO;
     private List<Resposta> respostas = new LinkedList<Resposta>();
     FragmentQuestaoEnade fragmentQuestaoEnade;
+    SimuladoController simuladoController = new SimuladoController(this);
+    LoginController loginController = new LoginController(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,10 +55,12 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_simulado_enade);
 
         this.simulado = SessionRepository.simulado;
+
         this.curso = (TextView) findViewById(R.id.simulado_curso);
         this.cronometro = (Chronometer) findViewById(R.id.chronometer2);
         this.btnNext = (Button) findViewById(R.id.simulado_btn_next);
 //        this.btnPrev = (Button) findViewById(R.id.simulado_btn_previous);
+
         this.curso.setText(simulado.getTitulo());
         this.cronometro.start();
 
@@ -59,6 +68,7 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
         simuladoDTO.setId(simulado.getId());
         alunoDTO = new AlunoDTO();
         alunoDTO.setId(SessionRepository.aluno.getId());
+        simuladoDTO.setAlunoDTO(alunoDTO);
         respostasDTO = new LinkedList<RespostaDTO>();
 
         moveQuestion();
@@ -66,23 +76,39 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RespostaDTO respostaDTO = new RespostaDTO();
-                respostaDTO.setId(fragmentQuestaoEnade.getIdResposta());
-                if(respostaDTO.getId() != null){
-                    respostasDTO.add(respostaDTO);
-                    Log.d("Teste", respostaDTO.getId().toString());
-                }
                 if (posicao == simulado.getQuestoes().size() - 1){
-                    Toast.makeText(SimuladoEnadeActivity.this,"Final do Simulado", Toast.LENGTH_SHORT).show();
-                    for (Resposta resposta : respostas){
-                        Log.d("teste",resposta.getSenteca());
+                    fragmentQuestaoEnade.onDestroyView();
+                    Log.d("Teste", "depois do destroi");
+
+                    cronometro.stop();
+                    btnNext.setVisibility(View.INVISIBLE);
+
+                    for(Resposta resposta : respostas){
+                        RespostaDTO respostaDTO = new RespostaDTO();
+                        respostaDTO.setId((int)(long)resposta.getId());
+                        respostasDTO.add(respostaDTO);
                     }
+
+                    simuladoDTO.setRespostasDTO(respostasDTO);
+                    SessionRepository.simuladoDTO = simuladoDTO;
+
+                    simuladoController.finnishSimulado(simuladoDTO);
+
+                    callLoading();
+
+                    posicao = 0;
+
+                    loginController.login(SessionRepository.loginRequest);
+
+                    Toast.makeText(SimuladoEnadeActivity.this,"Final do Simulado", Toast.LENGTH_SHORT).show();
                 } else {
                     posicao += 1;
                     moveQuestion();
                 }
             }
         });
+
+
 
 //        btnPrev.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -100,6 +126,17 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
+    }
+
+
+
+    private void callLoading() {
+        FragmentLoading fragmentLoading = new FragmentLoading();
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragmento, fragmentLoading);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     private void moveQuestion() {
@@ -121,5 +158,9 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
 
     public void addResposta(Resposta resposta){
         this.respostas.add(resposta);
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }
