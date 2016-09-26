@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import br.com.navi.enadumapp.Request.LoginRequest;
 import br.com.navi.enadumapp.Request.SimuladoRequest;
 import br.com.navi.enadumapp.models.Aluno;
+import br.com.navi.enadumapp.models.DTO.SimuladoDTO;
 import br.com.navi.enadumapp.models.SimuladoEnade;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -24,6 +25,9 @@ public interface HttpAPI {
     //@POST("xp8u7xxp")
     @POST("enadumweb/services/loginAluno")
     Call<Aluno> getAluno(@Body LoginRequest loginRequest);
+
+    @POST("enadumweb/services/resultadoEnade")
+    Call<Aluno> postResultado(@Body SimuladoDTO simuladoDTO);
 
     @GET("enadumweb/services/buscaSimulado")
     Call<SimuladoEnade> getSimuladoEnade(@Query("id") int id);
