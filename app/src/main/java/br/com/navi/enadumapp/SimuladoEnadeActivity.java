@@ -25,6 +25,7 @@ import br.com.navi.enadumapp.Utils.SessionRepository;
 import br.com.navi.enadumapp.models.DTO.AlunoDTO;
 import br.com.navi.enadumapp.models.DTO.RespostaDTO;
 import br.com.navi.enadumapp.models.DTO.SimuladoDTO;
+import br.com.navi.enadumapp.models.DTO.SimuladoDTO2;
 import br.com.navi.enadumapp.models.Resposta;
 import br.com.navi.enadumapp.models.SimuladoEnade;
 
@@ -65,7 +66,9 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
         this.cronometro.start();
 
         simuladoDTO = new SimuladoDTO();
-        simuladoDTO.setId(simulado.getId());
+        SimuladoDTO2 simuladoDTO2 = new SimuladoDTO2();
+        simuladoDTO2.setId(simulado.getId());
+        simuladoDTO.setSimulado(simuladoDTO2);
         alunoDTO = new AlunoDTO();
         alunoDTO.setId(SessionRepository.aluno.getId());
         simuladoDTO.setAlunoDTO(alunoDTO);

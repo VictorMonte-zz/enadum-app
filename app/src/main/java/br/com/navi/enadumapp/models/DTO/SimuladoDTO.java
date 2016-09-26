@@ -11,8 +11,8 @@ import java.util.List;
 
 public class SimuladoDTO {
 
-    @SerializedName("id")
-    private Integer id;
+    @SerializedName("simulado")
+    private SimuladoDTO2 simulado;
 
     @SerializedName("aluno")
     private AlunoDTO alunoDTO;
@@ -20,12 +20,12 @@ public class SimuladoDTO {
     @SerializedName("respostas")
     private List<RespostaDTO> respostasDTO = new LinkedList<RespostaDTO>();
 
-    public Integer getId() {
-        return id;
+    public SimuladoDTO2 getSimulado() {
+        return simulado;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSimulado(SimuladoDTO2 simulado) {
+        this.simulado = simulado;
     }
 
     public AlunoDTO getAlunoDTO() {
