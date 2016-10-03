@@ -2,6 +2,7 @@ package br.com.navi.enadumapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -107,9 +108,18 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
 
                     callLoading();
 
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            loginController.login(SessionRepository.loginRequest);
+                        }
+                    }, 3000);
+
+
                     posicao = 0;
 
-                    loginController.login(SessionRepository.loginRequest);
+                    //loginController.login(SessionRepository.loginRequest);
 
                     Toast.makeText(SimuladoEnadeActivity.this,"Final do Simulado", Toast.LENGTH_SHORT).show();
                 } else {
