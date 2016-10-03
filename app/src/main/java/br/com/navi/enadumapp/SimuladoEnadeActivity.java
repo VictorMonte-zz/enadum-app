@@ -2,6 +2,7 @@ package br.com.navi.enadumapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -63,6 +64,8 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
 //        this.btnPrev = (Button) findViewById(R.id.simulado_btn_previous);
 
         this.curso.setText(simulado.getTitulo());
+
+        this.cronometro.setBase(SystemClock.elapsedRealtime());
         this.cronometro.start();
 
         simuladoDTO = new SimuladoDTO();
@@ -93,6 +96,11 @@ public class SimuladoEnadeActivity extends AppCompatActivity {
                     }
 
                     simuladoDTO.setRespostasDTO(respostasDTO);
+//                    simuladoDTO.setTempo(cronometro.getBaseline());
+
+                    Integer baseLine = Math.round((SystemClock.elapsedRealtime() - cronometro.getBase())/1000);
+                    Log.d("Cronometro", baseLine.toString());
+                    simuladoDTO.setTempo(baseLine);
                     SessionRepository.simuladoDTO = simuladoDTO;
 
                     simuladoController.finnishSimulado(simuladoDTO);

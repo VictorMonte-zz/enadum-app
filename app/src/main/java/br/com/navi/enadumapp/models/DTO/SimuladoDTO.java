@@ -20,6 +20,9 @@ public class SimuladoDTO {
     @SerializedName("respostas")
     private List<RespostaDTO> respostasDTO = new LinkedList<RespostaDTO>();
 
+    @SerializedName("tempo")
+    private int tempo;
+
     public SimuladoDTO2 getSimulado() {
         return simulado;
     }
@@ -42,5 +45,13 @@ public class SimuladoDTO {
 
     public void setRespostasDTO(List<RespostaDTO> respostasDTO) {
         this.respostasDTO = respostasDTO;
+    }
+
+    public int getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(int tempo) {
+        this.tempo = tempo;
     }
 }

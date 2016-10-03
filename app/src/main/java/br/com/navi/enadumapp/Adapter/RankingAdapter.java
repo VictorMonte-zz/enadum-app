@@ -12,17 +12,18 @@ import java.util.List;
 
 import br.com.navi.enadumapp.R;
 import br.com.navi.enadumapp.models.Aluno;
+import br.com.navi.enadumapp.models.DTO.AlunoRankingDTO;
 
 /**
  * Created by Victor Monte on 27/08/2016.
  */
 public class RankingAdapter extends BaseAdapter {
 
-    public List<Aluno> ranking;
+    public List<AlunoRankingDTO> ranking;
     public FragmentActivity context;
     LayoutInflater inflater = null;
 
-    public RankingAdapter(FragmentActivity ctx, List<br.com.navi.enadumapp.models.Aluno> ranking)
+    public RankingAdapter(FragmentActivity ctx, List<AlunoRankingDTO> ranking)
     {
         this.context = ctx;
         this.ranking = ranking;
@@ -52,10 +53,10 @@ public class RankingAdapter extends BaseAdapter {
         posicao.setText(String.valueOf(i+1) + "° " + ranking.get(i).getNome());
 
         TextView instituicao = (TextView)row.findViewById(R.id.txtInstituicaoRanking);
-        instituicao.setText(ranking.get(i).getInstituicao().getNome());
+        instituicao.setText(ranking.get(i).getInstituicao());
 
         TextView pontuacao = (TextView)row.findViewById(R.id.txtPontuacao);
-        pontuacao.setText("x pts");
+        pontuacao.setText(ranking.get(i).getExperiencia().toString());
 
         ImageView avatar = (ImageView)row.findViewById(R.id.ivAvatarRanking);
         switch (i)

@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.navi.enadumapp.models.DTO.AlunoRankingDTO;
+
 /**
  * Created by Danilo on 17/09/2016.
  */
@@ -29,11 +31,22 @@ public class Aluno {
     @SerializedName("simuladosEnade")
     List<SimuladoEnade> simuladosEnade = new LinkedList<SimuladoEnade>();
 
-    @SerializedName("experiencia")
+    @SerializedName("exp")
     private Double experiencia;
 
     @SerializedName("resultadosEnade")
     private List<ResultadoEnade> resultadosEnade = new LinkedList<ResultadoEnade>();
+
+    @SerializedName("ranking")
+    private List<AlunoRankingDTO> ranking = new LinkedList<AlunoRankingDTO>();
+
+    public List<AlunoRankingDTO> getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(List<AlunoRankingDTO> ranking) {
+        this.ranking = ranking;
+    }
 
     public Integer getId() {
         return id;

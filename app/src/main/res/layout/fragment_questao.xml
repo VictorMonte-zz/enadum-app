@@ -22,7 +22,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:choiceMode="singleChoice"
-        android:layout_below="@id/questao_enunciado"/>
+        android:layout_below="@id/questao_enunciado"
+        />
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

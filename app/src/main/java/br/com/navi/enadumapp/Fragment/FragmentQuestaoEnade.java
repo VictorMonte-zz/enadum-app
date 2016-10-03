@@ -35,12 +35,14 @@ public class FragmentQuestaoEnade extends Fragment{
     private Integer idResposta;
     private Resposta resposta;
     private SimuladoEnadeActivity activity;
+    private Integer mmh;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_questao_enade,container,false);
 
+        mmh = 1000000000;
         this.enunciado = (TextView) view.findViewById(R.id.questao_enade_enunciado);
         this.listaDeRespostas = (ListView) view.findViewById(R.id.questao_enade_respostas);
 
@@ -54,10 +56,15 @@ public class FragmentQuestaoEnade extends Fragment{
         ArrayAdapter<Resposta> adapter = new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_single_choice, respostas);
 
         this.listaDeRespostas.setAdapter(adapter);
-        setListViewHeightBasedOnChildren(listaDeRespostas);
+        //setListViewHeightBasedOnChildren(listaDeRespostas);
+        setListViewHeightBasedOnItems(listaDeRespostas);
+        //getListViewSize(listaDeRespostas);
+
+
 
         return view;
     }
+
 
     @Override
     public void onDestroyView() {
@@ -83,32 +90,94 @@ public class FragmentQuestaoEnade extends Fragment{
 //        }
 //    }
 
-    public void setListViewHeightBasedOnChildren(ListView listView) {
+//    public void setListViewHeightBasedOnChildren(ListView listView) {
+//        ListAdapter listAdapter = listView.getAdapter();
+//        if (listAdapter == null) {
+//            // pre-condition
+//            return;
+//        }
+//
+//        Integer totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
+//        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+//        for (int i = 0; i < listAdapter.getCount(); i++) {
+//            View listItem = listAdapter.getView(i, null, listView);
+//
+//            if(listItem != null){
+//                // This next line is needed before you call measure or else you won't get measured height at all. The listitem needs to be drawn first to know the height.
+//                listItem.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+//                listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+//                Integer mh = listItem.getMeasuredHeight();
+//                totalHeight += listItem.getMeasuredHeight();
+//                Log.d("Total height", mh.toString());
+//                if(mh < mmh){
+//                    mmh = mh;
+//                }
+//            }
+//        }
+//
+//        ViewGroup.LayoutParams params = listView.getLayoutParams();
+//        Integer dividerHeight = listView.getDividerHeight();
+//        Log.d("mmh", mmh.toString());
+////        params.height = (totalHeight/2) + (listView.getDividerHeight() * (listAdapter.getCount() - 1) - 180) ;
+//        params.height = (totalHeight/2) - mmh * 4;
+//        listView.setLayoutParams(params);
+//        listView.requestLayout();
+//    }
+
+    public static boolean setListViewHeightBasedOnItems(ListView listView) {
+
         ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
+        if (listAdapter != null) {
 
-        int totalHeight = listView.getPaddingTop() + listView.getPaddingBottom();
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
-        for (int i = 0; i < listAdapter.getCount(); i++) {
-            View listItem = listAdapter.getView(i, null, listView);
+           // int numberOfItems = listAdapter.getCount();
+            int numberOfItems = 5;
 
-            if(listItem != null){
-                // This next line is needed before you call measure or else you won't get measured height at all. The listitem needs to be drawn first to know the height.
-                listItem.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
-                listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-                totalHeight += listItem.getMeasuredHeight();
-
+            // Get total height of all items.
+            int totalItemsHeight = 0;
+            for (int itemPos = 0; itemPos < numberOfItems; itemPos++) {
+                View item = listAdapter.getView(itemPos, null, listView);
+                item.measure(0, 0);
+                totalItemsHeight += item.getMeasuredHeight();
             }
+
+            // Get total height of all item dividers.
+            int totalDividersHeight = listView.getDividerHeight() *
+                    (numberOfItems - 1);
+
+            // Set list height.
+            ViewGroup.LayoutParams params = listView.getLayoutParams();
+            params.height = totalItemsHeight + totalDividersHeight + 246;
+            listView.setLayoutParams(params);
+            listView.requestLayout();
+
+            return true;
+
+        } else {
+            return false;
         }
 
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = (totalHeight/9) + (listView.getDividerHeight() * (listAdapter.getCount() - 1) - 180);
-        listView.setLayoutParams(params);
-        listView.requestLayout();
     }
+
+//    public static void getListViewSize(ListView myListView) {
+//        ListAdapter myListAdapter = myListView.getAdapter();
+//        if (myListAdapter == null) {
+//            //do nothing return null
+//            return;
+//        }
+//        //set listAdapter in loop for getting final size
+//        int totalHeight = 0;
+//        for (int size = 0; size < myListAdapter.getCount(); size++) {
+//            View listItem = myListAdapter.getView(size, null, myListView);
+//            listItem.measure(0, 0);
+//            totalHeight += listItem.getMeasuredHeight();
+//        }
+//        //setting listview item in adapter
+//        ViewGroup.LayoutParams params = myListView.getLayoutParams();
+//        params.height = totalHeight + (myListView.getDividerHeight() * (myListAdapter.getCount() - 1));
+//        myListView.setLayoutParams(params);
+//        // print height of adapter on log
+//        Log.i("height of listItem:", String.valueOf(totalHeight));
+//    }
 
     public Integer getIdResposta(){
         return this.idResposta;
